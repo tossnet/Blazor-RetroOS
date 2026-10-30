@@ -1,0 +1,92 @@
+@page "/static-css"
+
+<PageTitle>Static sites</PageTitle>
+
+<RetroWindow Title="Static sites" ShowCloseButton="false">
+    <h1>Static sites (HTML, PHP...)</h1>
+
+    <p>
+        The RetroOS looks can also be used <b>without Blazor</b>, in any static site (plain HTML, PHP, WordPress, Hugo...).
+        There is <b>one stylesheet per OS</b>, all styling the <b>same</b> <code>retro-</code> classes, plus <b>retroos.css</b>
+        with every look in one file. No JavaScript is needed.
+    </p>
+
+    <p>
+        These files are <b>generated automatically</b> on each build of the library from the components' sources,
+        so they always match the Blazor components. They are in the
+        <a href="https://github.com/tossnet/Blazor-RetroOS/tree/main/static/dist" target="_blank">static/dist</a> folder of the repository.
+    </p>
+
+    <h2>Installation guide</h2>
+
+    <h4>1. Get the files</h4>
+
+    <p><b>Option A - CDN</b>, nothing to download:</p>
+    <CodeBlock Code="@CdnCode" Language="CodeLanguage.Html" EnableLineNumbers="false" />
+
+    <p><code>@@main</code> always serves the latest version. To freeze a version, replace <code>main</code> with a commit hash or a tag.</p>
+
+    <p>
+        <b>Option B - copy the files</b>: download the repository
+        (<a href="https://github.com/tossnet/Blazor-RetroOS/archive/refs/heads/main.zip" target="_blank">ZIP</a>)
+        and copy the <b>static/dist</b> folder into your site. Keep <b>fonts/</b> next to the stylesheets:
+        they load the pixel fonts with relative paths.
+    </p>
+    <CodeBlock Code="@TreeCode" Language="CodeLanguage.Bash" EnableLineNumbers="false" />
+
+    <h4>2. Load ONE theme</h4>
+
+    <p>In the <b>&lt;head&gt;</b> of your pages:</p>
+    <CodeBlock Code="@LinkCode" Language="CodeLanguage.Html" EnableLineNumbers="false" />
+
+    <p>Every theme styles the same classes: to change the look, change the <code>href</code>, nothing else.</p>
+    <CodeBlock Code="@SwitchCode" Language="CodeLanguage.Html" EnableLineNumbers="false" />
+
+    <h4>Several looks on the same page</h4>
+
+    <p>
+        Load <b>retroos.css</b> instead and choose the look with the class <code>retro-appearance-&lt;os&gt;</code> on any element:
+        it applies to the element and to everything inside it. Without class, the look is Workbench 1.3.
+        It is the equivalent of the <code>Appearance</code> parameter.
+    </p>
+    <CodeBlock Code="@BundleCode" Language="CodeLanguage.Html" EnableLineNumbers="false" />
+
+    <h4>3. Write the components</h4>
+
+    <p>Each component is plain HTML with <code>retro-</code> classes, the same markup the Blazor components render:</p>
+    <CodeBlock Code="@ComponentsCode" Language="CodeLanguage.Html" EnableLineNumbers="false" />
+
+    <p>
+        The complete table of classes and the CSS variables (<code>--retro-font</code>, <code>--retro-accent</code>...) are in the
+        <a href="https://github.com/tossnet/Blazor-RetroOS/tree/main/static#readme" target="_blank">static sites guide</a>.
+    </p>
+
+    <h4>With PHP</h4>
+
+    <p>Nothing special: the stylesheets are static files, PHP only generates the HTML. A small helper avoids repeating the classes:</p>
+    <CodeBlock Code="@PhpCode" Language="CodeLanguage.Bash" EnableLineNumbers="false" />
+
+    <h2>Demo</h2>
+
+    <p>
+        The demo below is a plain HTML page that only loads the RetroOS stylesheets. Change the theme with the buttons
+        at the top, and click <b>HTML</b> under each component to get its markup.
+        <a href="static/index.html" target="_blank">Open it in a new tab</a>.
+    </p>
+
+    <iframe src="static/index.html" title="RetroOS static CSS demo" class="static-demo"></iframe>
+
+    <h2>Updating</h2>
+
+    <p>
+        Download the new <b>static/dist</b> folder again, or keep <code>@@main</code> in the CDN links.
+        Do not edit the files of <b>static/dist</b>: to customize the styles, add your own stylesheet <b>after</b> the theme.
+    </p>
+
+    <h2>Limitations</h2>
+
+    <p>
+        Only the look is provided: the gadgets of the windows (close, depth) and the buttons do nothing by themselves.
+        Add your own JavaScript for the behavior (open, close, drag...) and read the values with the DOM.
+    </p>
+</RetroWindow>

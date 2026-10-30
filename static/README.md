@@ -23,7 +23,7 @@ dist/
 
 ### Option B: copy the files to your site
 
-Copy the `static/dist` folder into your site, for example as `assets/retroos/`.
+Copy the `static/dist` folder into your site, for example as `assets/retroos/`, with its `fonts` folder: the stylesheets load their fonts from `fonts/`, next to them (the pixel fonts of Workbench 1.3, MIT License, and GEM, BSD 3-Clause License, see `fonts/*.LICENSE.txt`).
 
 ## 2. Load ONE theme
 

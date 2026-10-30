@@ -3,6 +3,10 @@
 ###############################################################################
 * text=auto
 
+# Fonts: the converted WOFF2 files and the Amiga bitmap fonts they are made from.
+*.woff2 binary
+tools/fonts/TopazDouble/*-16 binary
+
 ###############################################################################
 # Set default behavior for command prompt diff.
 #

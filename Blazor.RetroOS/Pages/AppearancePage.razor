@@ -9,11 +9,7 @@
             Every component has an Appearance parameter. It applies to the component and to everything
             inside it, and can be changed at any time. Without it, a component takes the look of its parents.
         </p>
-        <pre class="demo-code">&lt;link href="_content/BlazorRetroOS/css/retroos.css" rel="stylesheet" /&gt;
-
-&lt;RetroWindow Title="Disk" Appearance="appearance"&gt;
-    &lt;RetroButton&gt;OK&lt;/RetroButton&gt;
-&lt;/RetroWindow&gt;</pre>
+        <CodeBlock Code="@SampleCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
     </RetroWindow>
 
     <RetroWindow Title="This window only" Appearance="_window" ShowCloseButton="false">
@@ -58,4 +54,10 @@
 
 @code {
     private Appearance _window = Appearance.AtariST;
+
+    private const string SampleCode = @"<link href=""_content/BlazorRetroOS/css/retroos.css"" rel=""stylesheet"" />
+
+<RetroWindow Title=""Disk"" Appearance=""appearance"">
+    <RetroButton>OK</RetroButton>
+</RetroWindow>";
 }

@@ -4,9 +4,17 @@
  * Every theme defines the same retro- classes: swap this file for another retroos-*.css to change the look.
  */
 
+/* 8x16 pixel system font, converted from Atarist by ntwk (BSD 3-Clause License, see fonts/retroos-st-system.LICENSE.txt).
+   One font pixel is one CSS pixel at 16px. */
+@font-face {
+    font-family: "RetroOS ST System";
+    src: url("fonts/retroos-st-system.woff2") format("woff2");
+    font-display: block;
+}
+
 /* Green desktop, white windows drawn with thin black lines, selection by inversion. */
 :root {
-    --retro-font: "Atari ST 8x16 System Font", "Atari Classic", "Courier New", monospace;
+    --retro-font: "RetroOS ST System", "Courier New", monospace;
     --retro-font-size: 16px;
     --retro-desktop: #00ee00;
     --retro-background: #ffffff;
@@ -46,6 +54,8 @@
     text-shadow: none;
     font-style: normal;
     font-weight: normal;
+    /* The pixel font has a single weight: no faux bold or italic (blurred pixels) on <strong>, <h1>... (inherited by the content). */
+    font-synthesis: none;
 }
 
 /* Form controls: the browser and the frameworks give them their own font and look. */

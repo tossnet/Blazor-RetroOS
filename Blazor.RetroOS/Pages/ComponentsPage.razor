@@ -8,7 +8,7 @@
         <RetroButton OnClick="() => _clicks++">Cancel</RetroButton>
         <RetroButton Disabled="true">Disabled</RetroButton>
         <p>Clicks: @_clicks</p>
-        <pre class="demo-code">&lt;RetroButton Default="true" OnClick="..."&gt;OK&lt;/RetroButton&gt;</pre>
+        <CodeBlock Code="@ButtonCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
     </RetroWindow>
 
     <RetroWindow Title="CheckBox" ShowCloseButton="false" Active="false">
@@ -16,7 +16,7 @@
         <br />
         <RetroCheckBox Checked="true" Disabled="true" Text="Disabled" />
         <p>Checked: @_checked</p>
-        <pre class="demo-code">&lt;RetroCheckBox @@bind-Checked="value" Text="..." /&gt;</pre>
+        <CodeBlock Code="@CheckBoxCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
     </RetroWindow>
 
     <RetroWindow Title="TextBox" ShowCloseButton="false" Active="false">
@@ -24,13 +24,13 @@
         <br />
         <RetroTextBox Label="Disk" Value="DF0:" Disabled="true" />
         <p>Hello @_name</p>
-        <pre class="demo-code">&lt;RetroTextBox Label="Name" @@bind-Value="name" /&gt;</pre>
+        <CodeBlock Code="@TextBoxCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
     </RetroWindow>
 
     <RetroWindow Title="ProgressBar" ShowCloseButton="false" Active="false">
         <RetroProgressBar Value="_progress" />
         <RetroButton OnClick="() => _progress = (_progress + 20) % 120">Step</RetroButton>
-        <pre class="demo-code">&lt;RetroProgressBar Value="40" Max="100" /&gt;</pre>
+        <CodeBlock Code="@ProgressBarCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
     </RetroWindow>
 
     <RetroWindow Title="Disabled window" Disabled="true" ShowCloseButton="false" Active="false">
@@ -45,4 +45,9 @@
     private bool _checked = true;
     private string? _name = "Bob";
     private double _progress = 40;
+
+    private const string ButtonCode = """<RetroButton Default="true" OnClick="...">OK</RetroButton>""";
+    private const string CheckBoxCode = """<RetroCheckBox @bind-Checked="value" Text="..." />""";
+    private const string TextBoxCode = """<RetroTextBox Label="Name" @bind-Value="name" />""";
+    private const string ProgressBarCode = """<RetroProgressBar Value="40" Max="100" />""";
 }

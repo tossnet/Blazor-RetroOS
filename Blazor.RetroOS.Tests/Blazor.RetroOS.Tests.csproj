@@ -20,6 +20,7 @@
 	<ItemGroup>
 		<!-- The themes, read by ThemeContractTests -->
 		<None Include="..\Blazor.RetroOS.Components\wwwroot\css\retroos*.css" Link="Themes\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+		<None Include="..\Blazor.RetroOS.Components\wwwroot\css\fonts\*" Link="Themes\fonts\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 
 	<ItemGroup>

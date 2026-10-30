@@ -4,10 +4,17 @@
  * Every theme defines the same retro- classes: swap this file for another retroos-*.css to change the look.
  */
 
+/* 8x16 pixel font, converted from Topaz Double Serif by Alex Limi (MIT License, see fonts/retroos-double-serif.LICENSE.txt).
+   One font pixel is one CSS pixel at 16px. */
+@font-face {
+    font-family: "RetroOS Double Serif";
+    src: url("fonts/retroos-double-serif.woff2") format("woff2");
+    font-display: block;
+}
+
 /* Four color palette: blue background, white, black, orange. */
 :root {
-    /* "TopazPlus a500a1000a2000": free font, not included (see the README). */
-    --retro-font: "TopazPlus a500a1000a2000", "Topaz", "Topaz New", "Courier New", monospace;
+    --retro-font: "RetroOS Double Serif", "Courier New", monospace;
     --retro-font-size: 16px;
     --retro-desktop: #0055aa;
     --retro-background: #0055aa;
@@ -52,6 +59,8 @@
     text-shadow: none;
     font-style: normal;
     font-weight: normal;
+    /* The pixel font has a single weight: no faux bold or italic (blurred pixels) on <strong>, <h1>... (inherited by the content). */
+    font-synthesis: none;
 }
 
 /* Form controls: the browser and the frameworks give them their own font and look. */

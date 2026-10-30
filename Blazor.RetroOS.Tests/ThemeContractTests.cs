@@ -100,6 +100,20 @@ public class ThemeContractTests
         Assert.True(missing.Count == 0, $"{theme.ToFileName()} does not isolate: {string.Join(", ", missing)}");
     }
 
+    // The pixel fonts have a single weight: a faux bold (<strong>, <h1>...) blurs the pixels.
+    // font-synthesis is inherited: set on the screen and the windows, it covers their content.
+    [Theory]
+    [MemberData(nameof(Themes))]
+    public void Theme_DisablesFauxBoldInTheScreenAndWindows(Appearance theme)
+    {
+        var selectors = RulesDeclaring(ReadTheme(theme), "font-synthesis")
+            .SelectMany(s => s).ToHashSet();
+
+        Assert.Contains("." + RetroCss.Screen, selectors);
+        Assert.Contains("." + RetroCss.Window, selectors);
+        Assert.Matches(@"font-synthesis:\s*none;", ReadTheme(theme));
+    }
+
     [Theory]
     [MemberData(nameof(Themes))]
     public void Theme_SetsTheFontAndAppearanceOfTheControls(Appearance theme)
@@ -117,14 +131,55 @@ public class ThemeContractTests
         Assert.All(RetroCss.Controls, c => Assert.Contains(c, RetroCss.Isolated));
     }
 
-    // The README tells users to declare the free Topaz Plus font with this exact family name.
-    [Fact]
-    public void Amiga13_AsksForTopazPlusFirst()
+    // The appearances use the font bundled with the package (8x16 pixels, one font pixel per CSS pixel at 16px).
+    [Theory]
+    [InlineData(Appearance.Amiga13, "RetroOS Double Serif")]
+    [InlineData(Appearance.AtariST, "RetroOS ST System")]
+    public void Theme_UsesTheBundledFontFirst(Appearance theme, string family)
     {
-        var font = Regex.Match(ReadTheme(Appearance.Amiga13), @"--retro-font:\s*([^;]+);").Groups[1].Value;
+        var css = ReadTheme(theme);
+        var font = Regex.Match(css, @"--retro-font:\s*([^;]+);").Groups[1].Value;
 
-        Assert.StartsWith("\"TopazPlus a500a1000a2000\"", font);
+        Assert.StartsWith($"\"{family}\"", font);
         Assert.EndsWith("monospace", font);
+        Assert.Equal("16px", Regex.Match(css, @"--retro-font-size:\s*([^;]+);").Groups[1].Value.Trim());
+        Assert.Contains(family, FontFaces(css).Select(f => f.Family));
+    }
+
+    // (family, url) of the @font-face rules of a stylesheet.
+    private static IEnumerable<(string Family, string Url)> FontFaces(string css)
+        => Regex.Matches(css, @"@font-face\s*\{([^}]*)\}")
+            .Select(m => (
+                Regex.Match(m.Groups[1].Value, @"font-family:\s*""([^""]+)""").Groups[1].Value,
+                Regex.Match(m.Groups[1].Value, @"url\(""([^""]+)""\)").Groups[1].Value));
+
+    // The fonts are referenced as fonts/... next to the stylesheet (wwwroot/css, _content/BlazorRetroOS/css,
+    // static/dist), each with its license, under a RetroOS name (no trademark in the family name).
+    [Theory]
+    [MemberData(nameof(Themes))]
+    public void Theme_BundledFonts_ExistWithTheirLicense(Appearance theme)
+    {
+        Assert.All(FontFaces(ReadTheme(theme)), f =>
+        {
+            Assert.StartsWith("RetroOS ", f.Family);
+            Assert.Matches(@"^fonts/[a-z0-9-]+\.woff2$", f.Url);
+            var file = Path.Combine(ThemesDir, f.Url);
+            Assert.True(File.Exists(file), $"{f.Url} not found");
+            Assert.True(File.Exists(Path.ChangeExtension(file, ".LICENSE.txt")), $"no license for {f.Url}");
+        });
+    }
+
+    // @font-face is ignored inside @scope: the bundle declares the fonts at the top level, before the scopes.
+    [Fact]
+    public void Bundle_DeclaresTheFontsOutsideTheScopes()
+    {
+        var bundle = File.ReadAllText(Path.Combine(ThemesDir, "retroos.css"));
+        var firstScope = bundle.IndexOf("@scope", StringComparison.Ordinal);
+
+        var expected = Enum.GetValues<Appearance>().SelectMany(t => FontFaces(ReadTheme(t))).ToList();
+        Assert.NotEmpty(expected);
+        Assert.Equal(expected, FontFaces(bundle));
+        Assert.All(Regex.Matches(bundle, "@font-face"), m => Assert.True(m.Index < firstScope, "@font-face inside @scope"));
     }
 
     // Period colors of the desktops.

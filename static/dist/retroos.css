@@ -6,10 +6,22 @@
  * GENERATED FILE - DO NOT EDIT: regenerated on each build of Blazor.RetroOS.Components from retroos-<os>.css.
  */
 
+/* --- fonts --- */
+@font-face {
+    font-family: "RetroOS Double Serif";
+    src: url("fonts/retroos-double-serif.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "RetroOS ST System";
+    src: url("fonts/retroos-st-system.woff2") format("woff2");
+    font-display: block;
+}
+
 /* --- retroos-amiga13.css --- */
 @scope (.retro-appearance-amiga13, :root) to (.retro-appearance-atarist) {
 :scope {
-    --retro-font: "TopazPlus a500a1000a2000", "Topaz", "Topaz New", "Courier New", monospace;
+    --retro-font: "RetroOS Double Serif", "Courier New", monospace;
     --retro-font-size: 16px;
     --retro-desktop: #0055aa;
     --retro-background: #0055aa;
@@ -44,6 +56,7 @@
     text-shadow: none;
     font-style: normal;
     font-weight: normal;
+    font-synthesis: none;
 }
 .retro-gadget:where(:scope, *),
 .retro-button:where(:scope, *),
@@ -374,7 +387,7 @@
 /* --- retroos-atarist.css --- */
 @scope (.retro-appearance-atarist) to (.retro-appearance-amiga13) {
 :scope {
-    --retro-font: "Atari ST 8x16 System Font", "Atari Classic", "Courier New", monospace;
+    --retro-font: "RetroOS ST System", "Courier New", monospace;
     --retro-font-size: 16px;
     --retro-desktop: #00ee00;
     --retro-background: #ffffff;
@@ -406,6 +419,7 @@
     text-shadow: none;
     font-style: normal;
     font-weight: normal;
+    font-synthesis: none;
 }
 .retro-gadget:where(:scope, *),
 .retro-button:where(:scope, *),

@@ -11,6 +11,9 @@
 		   so that the Appearance parameter of a component (which adds the retro-appearance-<os> class)
 		   changes its look and the look of its children, at any time. The default appearance
 		   ($(RetroOSDefaultAppearance), the first value of the Appearance enum) is also scoped to :root.
+		   @font-face is not allowed inside @scope: the @font-face rules are moved before the @scope blocks.
+		   The fonts are in wwwroot/css/fonts, referenced as url("fonts/..."): the same relative path
+		   works for the sources, the bundle and static/dist.
 
 		2. After each build, the stylesheets (and the fonts they reference, if any) are copied to:
 
@@ -55,6 +58,8 @@
 				}
 
 				var sb = new StringBuilder();
+				var fontFaces = new StringBuilder();
+				var scopes = new StringBuilder();
 				sb.Append("/*!\n");
 				sb.Append(" * Blazor.RetroOS v" + Version + " - all the appearances, for the Appearance parameter of the components\n");
 				sb.Append(" * https://github.com/tossnet/Blazor-RetroOS - MIT License\n");
@@ -105,6 +110,13 @@
 					var css = File.ReadAllText(theme.Path).Replace("\r\n", "\n").TrimStart((char)0xFEFF);
 					// No comments: the bundle has its own header.
 					css = Regex.Replace(css, @"/\*[\s\S]*?\*/", "");
+					// @font-face is not allowed inside @scope: moved before the @scope blocks.
+					css = Regex.Replace(css, @"@font-face\s*\{[^}]*\}", m =>
+					{
+						fontFaces.Append(string.Join("\n", m.Value.Split('\n').Select(l => l.Trim()).Where(l => l.Length > 0)
+							.Select(l => l.StartsWith("@") || l == "}" ? l : "    " + l)) + "\n");
+						return "";
+					});
 					// Variables are defined on the scope root instead of the document.
 					css = Regex.Replace(css, @":root(?![\w-])", ":scope");
 					// Style rules (not the at-rules): every selector may match the scope root.
@@ -118,11 +130,15 @@
 					var roots = ".retro-appearance-" + theme.Key + (theme.Key == DefaultAppearance ? ", :root" : "");
 					var limits = string.Join(", ", themes.Where(t => t.Key != theme.Key).Select(t => ".retro-appearance-" + t.Key));
 
-					sb.Append("\n/* --- retroos-" + theme.Key + ".css --- */\n");
-					sb.Append("@scope (" + roots + ")" + (limits.Length > 0 ? " to (" + limits + ")" : "") + " {\n");
-					sb.Append(css.TrimEnd());
-					sb.Append("\n}\n");
+					scopes.Append("\n/* --- retroos-" + theme.Key + ".css --- */\n");
+					scopes.Append("@scope (" + roots + ")" + (limits.Length > 0 ? " to (" + limits + ")" : "") + " {\n");
+					scopes.Append(css.TrimEnd());
+					scopes.Append("\n}\n");
 				}
+
+				if (fontFaces.Length > 0)
+					sb.Append("\n/* --- fonts --- */\n").Append(fontFaces);
+				sb.Append(scopes);
 
 				var bytes = new UTF8Encoding(false).GetBytes(sb.ToString());
 				for (var attempt = 0; ; attempt++)
@@ -159,7 +175,7 @@
 			Condition="'$(TargetFramework)' != ''">
 		<ItemGroup>
 			<_RetroOSTheme Include="$(MSBuildThisFileDirectory)wwwroot\css\retroos*.css" />
-			<_RetroOSFont Include="$(MSBuildThisFileDirectory)wwwroot\fonts\*" />
+			<_RetroOSFont Include="$(MSBuildThisFileDirectory)wwwroot\css\fonts\*" />
 		</ItemGroup>
 		<!-- Several target frameworks may build in parallel: a few retries if the file is locked. -->
 		<Copy SourceFiles="@(_RetroOSTheme)"

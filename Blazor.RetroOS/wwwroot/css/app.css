@@ -52,13 +52,17 @@ html, body {
     align-items: start;
 }
 
-.demo-code {
-    padding: 6px;
-    border: var(--retro-line) dashed var(--retro-text);
+/* Code samples (Brism CodeBlock): wrap the long lines instead of a scrollbar in the narrow windows */
+.demo-main pre[class*="language-"],
+.demo-main pre[class*="language-"] > code {
     white-space: pre-wrap;
     word-break: break-word;
-    font-family: var(--retro-font);
 }
+
+    /* prism.css gives the operators a light background, too visible on the dark theme */
+    .demo-main pre[class*="language-"] .token.operator {
+        background: none;
+    }
 
 .demo-table {
     border-collapse: collapse;

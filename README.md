@@ -98,51 +98,25 @@ The class names rendered by the components are listed in `RetroCss`, and every `
 
 ### Fonts
 
-No font is embedded. Each appearance names its period font first and falls back to a monospace font: see [Fonts](#fonts) at the end of this page to get the pixel look.
+| Appearance | Font family in the CSS | Font |
+|------------|------------------------|------|
+| Workbench 1.3 | `RetroOS Double Serif` | **included**, `css/fonts/retroos-double-serif.woff2` (4 KB) |
+| GEM (Atari ST) | `RetroOS ST System` | **included**, `css/fonts/retroos-st-system.woff2` (6 KB) |
 
-### Static sites (without Blazor)
+`RetroOS Double Serif` is an 8x16 pixel font: at the 16px size of the stylesheet, one pixel of the font is one CSS pixel. It is converted from [Topaz Double Serif](https://github.com/amigavision/TopazDouble) by Alex Limi, a hand-drawn, double-height recreation of the Workbench 1.x system font (Amiga bitmap format), released under the MIT License. The conversion (`tools/fonts/amiga_font_to_woff2.py`) keeps the pixel grid exactly; the font is renamed so that its name contains no trademark. Its license is next to it: `css/fonts/retroos-double-serif.LICENSE.txt` (also in `static/dist/fonts`).
 
-The stylesheets are also available for any static site (HTML, PHP...): copy the [static/dist](static/dist) folder or use the CDN:
+`RetroOS ST System` is also an 8x16 pixel font. It is converted from [Atarist](https://github.com/ntwk/atarist-font) by ntwk, released under the BSD 3-Clause License: a rebranding of the high-resolution system font of the Atari ST (BDF format), extended with Cyrillic. The conversion (`tools/fonts/bdf_font_to_woff2.py`) keeps the pixel grid exactly, and the font is renamed the same way. Its license: `css/fonts/retroos-st-system.LICENSE.txt`. Note that Atarist reproduces the glyphs of the original system font: its author releases it under the BSD license, but the rights on the original design were never released by their holders.
 
-```html
-<link href="https://cdn.jsdelivr.net/gh/tossnet/Blazor-RetroOS@main/static/dist/retroos-amiga13.css" rel="stylesheet" />
-```
+The stylesheets declare their fonts with `url("fonts/...")`, relative to the stylesheet: keep the `fonts` folder next to the CSS files when you copy them (static sites).
 
-Full guide: [static/README.md](static/README.md).
-
-`retroos.css` and `static/dist` are generated on each build of `Blazor.RetroOS.Components` from `wwwroot/css/retroos-<os>.css`: never edit them by hand, edit the sources, build, and commit (the CI checks they are up to date).
-
-## Trademarks
-
-RetroOS reproduces the general look of old desktops with its own CSS. It contains no logo, icon or font of these systems.
-
-Amiga, Workbench, Atari, Atari ST and GEM are trademarks of their respective owners. Blazor.RetroOS is not affiliated with, nor endorsed by, them; the names are only used to describe a visual style. 
-
-## Release Notes
-
-📜 **[Full changelog](https://github.com/tossnet/Blazor-RetroOS/blob/main/CHANGELOG.md)**
-
-## Fonts
-
-The package contains no font. The stylesheets ask for these fonts first, then fall back to a monospace font:
-
-| Appearance | Font family in the CSS | Where to get it |
-|------------|------------------------|-----------------|
-| Workbench 1.3 | `TopazPlus a500a1000a2000` | [rewtnull/amigafonts](https://github.com/rewtnull/amigafonts), file `ttf/TopazPlus_a500_v1.0.ttf` |
-| GEM (Atari ST) | `Atari ST 8x16 System Font` | not referenced yet |
-
-To use Topaz Plus, add the file to your site **without renaming it** and declare it with the family name the stylesheet expects:
+To use another font, override the variable after the RetroOS stylesheet:
 
 ```css
-@font-face {
-    font-family: "TopazPlus a500a1000a2000";
-    src: url("fonts/TopazPlus_a500_v1.0.ttf") format("truetype");
-}
+:root { --retro-font: "My Font", monospace; }
 ```
-
-Topaz Plus is © dMG of Trueschool and Divine Stylers (TrueType version, 2009); the original Topaz design is © Amiga Inc. Check its license before using it: the README of the repository says GPL with font exception, but the license field of the font file itself says [CC BY-NC-SA 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/) (no commercial use), and asks to keep the distribution intact, not to rename the fonts and to credit the author when it is displayed publicly. This is why it is not bundled with this MIT package.
 
 ## Credits
 
 - [TAWS, The Amiga Workbench Simulation](https://taws.ch/WB.html) by Michael Rupp: a very faithful reproduction of every Workbench version, used as a visual reference for the Workbench appearances (nothing is copied from it: © Michael Rupp, all rights reserved).
-- [rewtnull/amigafonts](https://github.com/rewtnull/amigafonts): the Topaz Plus font by dMG, which the Workbench 1.3 appearance asks for (not included, see Fonts).
+- [amigavision/TopazDouble](https://github.com/amigavision/TopazDouble) by Alex Limi (MIT License): the Topaz Double Serif font, converted to `RetroOS Double Serif` for the Workbench 1.3 appearance (see Fonts).
+- [ntwk/atarist-font](https://github.com/ntwk/atarist-font) by ntwk (BSD 3-Clause License): the Atarist font, converted to `RetroOS ST System` for the GEM (Atari ST) appearance (see Fonts).
