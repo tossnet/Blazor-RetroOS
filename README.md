@@ -145,4 +145,4 @@ Topaz Plus is © dMG of Trueschool and Divine Stylers (TrueType version, 2009); 
 ## Credits
 
 - [TAWS, The Amiga Workbench Simulation](https://taws.ch/WB.html) by Michael Rupp: a very faithful reproduction of every Workbench version, used as a visual reference for the Workbench appearances (nothing is copied from it: © Michael Rupp, all rights reserved).
-- [rewtnull/amigafonts](https://github.com/rewtnull/amigafonts): the Topaz Plus font by dMG.
+- [rewtnull/amigafonts](https://github.com/rewtnull/amigafonts): the Topaz Plus font by dMG, which the Workbench 1.3 appearance asks for (not included, see Fonts).
