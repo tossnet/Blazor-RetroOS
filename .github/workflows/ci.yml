@@ -8,6 +8,8 @@ jobs:
   build:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     env:
       PUBLISH_FOLDER: publish/wwwroot
@@ -54,7 +56,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: peaceiris/actions-gh-pages@v3.6.1
         with:
-            github_token: ${{ secrets.PUBLISH_TOKEN }}
+            github_token: ${{ secrets.GITHUB_TOKEN }}
             publish_branch: gh-pages
             publish_dir: ${{ env.PUBLISH_FOLDER }}
             allow_empty_commit: false
