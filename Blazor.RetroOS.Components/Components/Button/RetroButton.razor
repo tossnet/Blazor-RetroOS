@@ -1,0 +1,12 @@
+@namespace Blazor.RetroOS.Components
+
+@inherits RetroComponentBase
+
+<button type="@Type"
+        @onclick="@OnClickHandlerAsync"
+        class="@GetComponentClass()"
+        disabled="@IsDisabled"
+        style="@Style"
+        @attributes="Attributes">
+    @ChildContent
+</button>

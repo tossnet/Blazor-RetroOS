@@ -1,0 +1,101 @@
+/* Demo layout only: the colors come from the CSS variables of the current theme. */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#app {
+    height: 100%;
+}
+
+.demo-screen {
+    height: 100%;
+}
+
+    /* The side menu touches the edges of the screen, as in the Blazor.WinOld demo (.demo-main has its own padding). */
+    .demo-screen .retro-screen-body {
+        padding: 0;
+    }
+
+.demo-theme-link {
+    padding: 0 6px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .demo-theme-link.selected,
+    .demo-theme-link:hover {
+        text-decoration: underline;
+    }
+
+.demo-main h1 {
+    font-size: 1.4em;
+    margin: 0 0 8px;
+}
+
+    .demo-main h1:focus {
+        outline: none;
+    }
+
+.demo-main h2 {
+    font-size: 1.1em;
+}
+
+.demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 12px;
+    align-items: start;
+}
+
+.demo-code {
+    padding: 6px;
+    border: var(--retro-line) dashed var(--retro-text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: var(--retro-font);
+}
+
+.demo-table {
+    border-collapse: collapse;
+}
+
+    .demo-table th,
+    .demo-table td {
+        border: var(--retro-line) solid var(--retro-text);
+        padding: 2px 8px;
+        text-align: left;
+    }
+
+#blazor-error-ui {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.6rem 1.25rem;
+    background: lightyellow;
+    color: #000;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+.loading {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background: #0055aa;
+    color: #fff;
+    font-family: "Courier New", monospace;
+}

@@ -1,0 +1,698 @@
+/*!
+ * Blazor.RetroOS v0.1.0 - all the appearances, for the Appearance parameter of the components
+ * https://github.com/tossnet/Blazor-RetroOS - MIT License
+ * The class retro-appearance-<os> applies an appearance to an element and its children.
+ * Default appearance: amiga13.
+ * GENERATED FILE - DO NOT EDIT: regenerated on each build of Blazor.RetroOS.Components from retroos-<os>.css.
+ */
+
+/* --- retroos-amiga13.css --- */
+@scope (.retro-appearance-amiga13, :root) to (.retro-appearance-atarist) {
+:scope {
+    --retro-font: "TopazPlus a500a1000a2000", "Topaz", "Topaz New", "Courier New", monospace;
+    --retro-font-size: 16px;
+    --retro-desktop: #0055aa;
+    --retro-background: #0055aa;
+    --retro-text: #ffffff;
+    --retro-highlight: #ffffff;
+    --retro-shadow: #000022;
+    --retro-accent: #ff8800;
+    --retro-line: 2px;
+    --retro-bar-height: 22px;
+    --retro-titlebar-height: 17px;
+    --retro-dragbar-line: 3px;
+    --retro-u: 1.5px;
+    --retro-ghost: repeating-conic-gradient(var(--retro-background) 0 25%, transparent 0 50%) 0 0 / 4px 4px;
+    --retro-ghost-mask: repeating-conic-gradient(#000 0 25%, transparent 0 50%) 0 0 / 4px 4px;
+}
+.retro-screen:where(:scope, *),
+.retro-window:where(:scope, *),
+.retro-gadget:where(:scope, *),
+.retro-button:where(:scope, *),
+.retro-checkbox:where(:scope, *),
+.retro-checkbox-input:where(:scope, *),
+.retro-label:where(:scope, *),
+.retro-field:where(:scope, *),
+.retro-textbox:where(:scope, *),
+.retro-progress:where(:scope, *) {
+    box-sizing: border-box;
+    line-height: normal;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+    font-style: normal;
+    font-weight: normal;
+}
+.retro-gadget:where(:scope, *),
+.retro-button:where(:scope, *),
+.retro-checkbox-input:where(:scope, *),
+.retro-textbox:where(:scope, *) {
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    border-radius: 0;
+    box-shadow: none;
+}
+.retro-screen:where(:scope, *) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    box-sizing: border-box;
+    background: var(--retro-desktop);
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+.retro-screen:where(:scope, *) *,
+.retro-screen:where(:scope, *) *::before,
+.retro-screen:where(:scope, *) *::after {
+    box-sizing: border-box;
+}
+.retro-screen-titlebar:where(:scope, *) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: var(--retro-bar-height);
+    padding: 0 6px;
+    background: var(--retro-highlight);
+    color: var(--retro-background);
+    border-bottom: var(--retro-line) solid var(--retro-shadow);
+    white-space: nowrap;
+    flex: none;
+}
+.retro-screen-title:where(:scope, *) {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.retro-screen-body:where(:scope, *) {
+    position: relative;
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+.retro-window:where(:scope, *) {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-highlight);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+.retro-titlebar:where(:scope, *) {
+    --retro-titlebar-bg: var(--retro-highlight);
+    display: flex;
+    align-items: stretch;
+    box-sizing: border-box;
+    height: var(--retro-titlebar-height);
+    background: var(--retro-titlebar-bg);
+    color: var(--retro-background);
+    border-bottom: var(--retro-line) solid var(--retro-highlight);
+    -webkit-user-select: none;
+    user-select: none;
+    flex: none;
+}
+.retro-titlebar-text:where(:scope, *) {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--retro-u) * 2);
+    min-width: 0;
+    padding: 0 calc(var(--retro-u) * 1.5) 0 calc(var(--retro-u) * 2);
+    line-height: calc(var(--retro-titlebar-height) - var(--retro-line));
+    overflow: hidden;
+    white-space: nowrap;
+}
+    .retro-titlebar-text:where(:scope, *)::after {
+        content: "";
+        flex: 1;
+        height: calc(var(--retro-dragbar-line) * 3);
+        background:
+            linear-gradient(currentColor, currentColor) top / 100% var(--retro-dragbar-line) no-repeat,
+            linear-gradient(currentColor, currentColor) bottom / 100% var(--retro-dragbar-line) no-repeat;
+    }
+.retro-window:not(.retro-window-active):where(:scope, *) > .retro-titlebar > .retro-titlebar-text {
+    -webkit-mask: var(--retro-ghost-mask);
+    mask: var(--retro-ghost-mask);
+}
+.retro-window-body:where(:scope, *) {
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+.retro-gadget:where(:scope, *) {
+    --retro-separator: linear-gradient(currentColor, currentColor);
+    position: relative;
+    box-sizing: border-box;
+    width: calc(var(--retro-u) * 12);
+    flex: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+    .retro-gadget:where(:scope, *)::before,
+.retro-gadget:where(:scope, *)::after {
+        content: "";
+        position: absolute;
+        box-sizing: border-box;
+    }
+    .retro-gadget:focus-visible:where(:scope, *) {
+        outline: var(--retro-line) dashed var(--retro-accent);
+        outline-offset: -4px;
+    }
+    .retro-gadget:active:where(:scope, *) {
+        filter: invert(1);
+    }
+.retro-gadget-close:where(:scope, *) {
+    background:
+        var(--retro-separator) left / var(--retro-u) 100% no-repeat,
+        var(--retro-separator) right / var(--retro-u) 100% no-repeat;
+}
+    .retro-gadget-close:where(:scope, *)::before {
+        left: calc(var(--retro-u) * 2);
+        top: var(--retro-u);
+        width: calc(var(--retro-u) * 8);
+        height: calc(var(--retro-u) * 8);
+        box-shadow: inset 0 0 0 var(--retro-u) currentColor;
+    }
+    .retro-gadget-close:where(:scope, *)::after {
+        left: calc(var(--retro-u) * 5);
+        top: calc(var(--retro-u) * 4);
+        width: calc(var(--retro-u) * 2);
+        height: calc(var(--retro-u) * 2);
+        background: var(--retro-shadow);
+    }
+.retro-gadget-front:where(:scope, *) {
+    background: var(--retro-separator) left / var(--retro-u) 100% no-repeat;
+}
+.retro-gadget-back:where(:scope, *) {
+    order: 1;
+    width: calc(var(--retro-u) * 13);
+    background:
+        var(--retro-separator) left / var(--retro-u) 100% no-repeat,
+        var(--retro-separator) right / var(--retro-u) 100% no-repeat;
+}
+    .retro-gadget-front:where(:scope, *)::before {
+        left: calc(var(--retro-u) * 2);
+        top: var(--retro-u);
+        width: calc(var(--retro-u) * 7);
+        height: calc(var(--retro-u) * 6);
+        box-shadow: inset 0 0 0 var(--retro-u) currentColor;
+    }
+    .retro-gadget-front:where(:scope, *)::after {
+        left: calc(var(--retro-u) * 4);
+        top: calc(var(--retro-u) * 3);
+        width: calc(var(--retro-u) * 7);
+        height: calc(var(--retro-u) * 6);
+        background: var(--retro-shadow);
+    }
+    .retro-gadget-back:where(:scope, *)::before {
+        left: calc(var(--retro-u) * 2);
+        top: var(--retro-u);
+        width: calc(var(--retro-u) * 7);
+        height: calc(var(--retro-u) * 6);
+        background: var(--retro-shadow);
+    }
+    .retro-gadget-back:where(:scope, *)::after {
+        left: calc(var(--retro-u) * 4);
+        top: calc(var(--retro-u) * 2);
+        width: calc(var(--retro-u) * 7);
+        height: calc(var(--retro-u) * 7);
+        box-shadow: inset 0 0 0 var(--retro-u) currentColor;
+        background: var(--retro-titlebar-bg);
+    }
+.retro-button:where(:scope, *) {
+    position: relative;
+    min-width: 72px;
+    min-height: 26px;
+    margin: 4px;
+    padding: 2px 12px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-highlight);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.retro-button-default:where(:scope, *) {
+    box-shadow: 0 0 0 var(--retro-line) var(--retro-background), 0 0 0 calc(var(--retro-line) * 2) var(--retro-highlight);
+}
+.retro-button:focus-visible:where(:scope, *) {
+    outline: var(--retro-line) dashed var(--retro-accent);
+    outline-offset: -6px;
+}
+.retro-button:not(:disabled):active:where(:scope, *) {
+    background: var(--retro-accent);
+    color: var(--retro-shadow);
+}
+.retro-button:disabled:where(:scope, *) {
+    cursor: default;
+}
+    .retro-button:disabled:where(:scope, *)::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+.retro-checkbox:where(:scope, *) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+}
+.retro-checkbox-input:where(:scope, *) {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 26px;
+    height: 20px;
+    margin: 0;
+    flex: none;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-highlight);
+    cursor: inherit;
+}
+    .retro-checkbox-input:checked:where(:scope, *)::after {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 0;
+        width: 6px;
+        height: 11px;
+        border: solid var(--retro-accent);
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+    }
+    .retro-checkbox-input:focus-visible:where(:scope, *) {
+        outline: var(--retro-line) dashed var(--retro-accent);
+        outline-offset: 2px;
+    }
+.retro-checkbox:has(.retro-checkbox-input:disabled):where(:scope, *) {
+    cursor: default;
+}
+    .retro-checkbox:has(.retro-checkbox-input:disabled):where(:scope, *)::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+.retro-label:where(:scope, *) {
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+.retro-field:where(:scope, *) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+    .retro-field:has(.retro-textbox:disabled):where(:scope, *)::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+.retro-textbox:where(:scope, *) {
+    min-width: 0;
+    height: 26px;
+    padding: 2px 6px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-highlight);
+    border-radius: 0;
+    outline: none;
+    caret-color: var(--retro-accent);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+    .retro-textbox:focus:where(:scope, *) {
+        border-color: var(--retro-accent);
+    }
+    .retro-textbox:where(:scope, *)::placeholder {
+        color: var(--retro-text);
+        opacity: 0.6;
+    }
+    .retro-textbox:where(:scope, *)::selection {
+        background: var(--retro-accent);
+        color: var(--retro-shadow);
+    }
+.retro-progress:where(:scope, *) {
+    width: 100%;
+    height: 22px;
+    padding: 2px;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-highlight);
+}
+.retro-progress-bar:where(:scope, *) {
+    height: 100%;
+    max-width: 100%;
+    background: var(--retro-accent);
+}
+}
+
+/* --- retroos-atarist.css --- */
+@scope (.retro-appearance-atarist) to (.retro-appearance-amiga13) {
+:scope {
+    --retro-font: "Atari ST 8x16 System Font", "Atari Classic", "Courier New", monospace;
+    --retro-font-size: 16px;
+    --retro-desktop: #00ee00;
+    --retro-background: #ffffff;
+    --retro-text: #000000;
+    --retro-highlight: #ffffff;
+    --retro-shadow: #000000;
+    --retro-accent: #000000;
+    --retro-line: 1px;
+    --retro-bar-height: 20px;
+    --retro-ghost: repeating-conic-gradient(var(--retro-background) 0 25%, transparent 0 50%) 0 0 / 2px 2px;
+    --retro-pattern: repeating-linear-gradient(to bottom, var(--retro-shadow) 0 1px, var(--retro-background) 1px 2px);
+}
+.retro-screen:where(:scope, *),
+.retro-window:where(:scope, *),
+.retro-gadget:where(:scope, *),
+.retro-button:where(:scope, *),
+.retro-checkbox:where(:scope, *),
+.retro-checkbox-input:where(:scope, *),
+.retro-label:where(:scope, *),
+.retro-field:where(:scope, *),
+.retro-textbox:where(:scope, *),
+.retro-progress:where(:scope, *) {
+    box-sizing: border-box;
+    line-height: normal;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+    font-style: normal;
+    font-weight: normal;
+}
+.retro-gadget:where(:scope, *),
+.retro-button:where(:scope, *),
+.retro-checkbox-input:where(:scope, *),
+.retro-textbox:where(:scope, *) {
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    border-radius: 0;
+    box-shadow: none;
+}
+.retro-screen:where(:scope, *) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    box-sizing: border-box;
+    background: var(--retro-desktop);
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+.retro-screen:where(:scope, *) *,
+.retro-screen:where(:scope, *) *::before,
+.retro-screen:where(:scope, *) *::after {
+    box-sizing: border-box;
+}
+.retro-screen-titlebar:where(:scope, *) {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: var(--retro-bar-height);
+    padding: 0 8px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border-bottom: var(--retro-line) solid var(--retro-shadow);
+    white-space: nowrap;
+    flex: none;
+}
+.retro-screen-title:where(:scope, *) {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.retro-screen-body:where(:scope, *) {
+    position: relative;
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+.retro-window:where(:scope, *) {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+.retro-titlebar:where(:scope, *) {
+    --retro-titlebar-bg: var(--retro-background);
+    display: flex;
+    align-items: stretch;
+    height: var(--retro-bar-height);
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border-bottom: var(--retro-line) solid var(--retro-shadow);
+    -webkit-user-select: none;
+    user-select: none;
+    flex: none;
+}
+.retro-window-active:where(:scope, *) > .retro-titlebar {
+    background: var(--retro-pattern);
+}
+.retro-titlebar-text:where(:scope, *) {
+    flex: 0 1 auto;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 0 8px;
+    background: var(--retro-background);
+    line-height: calc(var(--retro-bar-height) - var(--retro-line));
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+    .retro-titlebar-text:empty:where(:scope, *) {
+        visibility: hidden;
+    }
+.retro-window-body:where(:scope, *) {
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+.retro-gadget:where(:scope, *) {
+    position: relative;
+    width: var(--retro-bar-height);
+    flex: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    cursor: pointer;
+}
+    .retro-gadget:where(:scope, *)::before,
+.retro-gadget:where(:scope, *)::after {
+        content: "";
+        position: absolute;
+    }
+    .retro-gadget:focus-visible:where(:scope, *) {
+        outline: var(--retro-line) dotted var(--retro-shadow);
+        outline-offset: -3px;
+    }
+    .retro-gadget:active:where(:scope, *) {
+        filter: invert(1);
+    }
+.retro-gadget-close:where(:scope, *) {
+    border-right: var(--retro-line) solid var(--retro-shadow);
+}
+    .retro-gadget-close:where(:scope, *)::before,
+.retro-gadget-close:where(:scope, *)::after {
+        left: 4px;
+        top: 9px;
+        width: 11px;
+        height: 2px;
+        background: currentColor;
+        transform: rotate(45deg);
+    }
+    .retro-gadget-close:where(:scope, *)::after {
+        transform: rotate(-45deg);
+    }
+.retro-gadget-back:where(:scope, *) {
+    display: none;
+}
+.retro-gadget-front:where(:scope, *) {
+    border-left: var(--retro-line) solid var(--retro-shadow);
+}
+    .retro-gadget-front:where(:scope, *)::before {
+        left: 4px;
+        top: 4px;
+        width: 11px;
+        height: 11px;
+        border: var(--retro-line) solid currentColor;
+    }
+    .retro-gadget-front:where(:scope, *)::after {
+        left: 7px;
+        top: 7px;
+        width: 5px;
+        height: 5px;
+        background: currentColor;
+    }
+.retro-button:where(:scope, *) {
+    position: relative;
+    min-width: 72px;
+    min-height: 24px;
+    margin: 4px;
+    padding: 2px 12px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    border-radius: 0;
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.retro-button-default:where(:scope, *) {
+    border-width: 3px;
+}
+.retro-button:focus-visible:where(:scope, *) {
+    outline: var(--retro-line) dotted var(--retro-shadow);
+    outline-offset: -5px;
+}
+.retro-button:not(:disabled):active:where(:scope, *) {
+    background: var(--retro-shadow);
+    color: var(--retro-background);
+}
+.retro-button:disabled:where(:scope, *) {
+    cursor: default;
+}
+    .retro-button:disabled:where(:scope, *)::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+.retro-checkbox:where(:scope, *) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+}
+.retro-checkbox-input:where(:scope, *) {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    flex: none;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-shadow);
+    cursor: inherit;
+}
+    .retro-checkbox-input:checked:where(:scope, *) {
+        background:
+            linear-gradient(to top right, transparent calc(50% - 1px), var(--retro-shadow) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),
+            linear-gradient(to bottom right, transparent calc(50% - 1px), var(--retro-shadow) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),
+            var(--retro-background);
+    }
+    .retro-checkbox-input:focus-visible:where(:scope, *) {
+        outline: var(--retro-line) dotted var(--retro-shadow);
+        outline-offset: 2px;
+    }
+.retro-checkbox:has(.retro-checkbox-input:disabled):where(:scope, *) {
+    cursor: default;
+}
+    .retro-checkbox:has(.retro-checkbox-input:disabled):where(:scope, *)::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+.retro-label:where(:scope, *) {
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+.retro-field:where(:scope, *) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+    .retro-field:has(.retro-textbox:disabled):where(:scope, *)::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+.retro-textbox:where(:scope, *) {
+    min-width: 0;
+    height: 22px;
+    padding: 0 2px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: 0;
+    border-bottom: var(--retro-line) dashed var(--retro-shadow);
+    border-radius: 0;
+    outline: none;
+    caret-color: var(--retro-shadow);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+    .retro-textbox:focus:where(:scope, *) {
+        border-bottom-style: solid;
+    }
+    .retro-textbox:where(:scope, *)::placeholder {
+        color: var(--retro-text);
+        opacity: 0.5;
+    }
+    .retro-textbox:where(:scope, *)::selection {
+        background: var(--retro-shadow);
+        color: var(--retro-background);
+    }
+.retro-progress:where(:scope, *) {
+    width: 100%;
+    height: 20px;
+    padding: 2px;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-shadow);
+}
+.retro-progress-bar:where(:scope, *) {
+    height: 100%;
+    max-width: 100%;
+    background: var(--retro-pattern);
+}
+}

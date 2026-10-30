@@ -1,0 +1,101 @@
+@page "/"
+
+@inject IJSRuntime JS
+
+<PageTitle>Blazor.RetroOS</PageTitle>
+
+@* The hero is a plain div: its retro-appearance- class gives it the desktop of the previewed OS. *@
+<div class="hero @_preview.ToCssClass()">
+    <div class="hero-text">
+        <div class="hero-badge-row">
+            <a href="https://www.nuget.org/packages/BlazorRetroOS/"
+               target="_blank"
+               tabindex="-1">
+                <img src="https://img.shields.io/nuget/v/BlazorRetroOS.svg"
+                     alt="NuGet" />
+            </a>
+            <a href="https://github.com/tossnet/Blazor-RetroOS/blob/main/LICENSE.txt"
+               target="_blank"
+               tabindex="-1">
+                <img src="https://img.shields.io/github/license/tossnet/Blazor-RetroOS?color=594ae2&amp;logo=github&amp;style=flat-square"
+                     alt="License" />
+            </a>
+        </div>
+        <h1 class="hero-title">Blazor <span class="hero-title-accent">RetroOS</span></h1>
+        <p class="hero-subtitle">
+            Retro desktop UI components for Blazor.<br />
+            One look per OS, switched at runtime with a single parameter.
+        </p>
+        <div class="hero-install">
+            <code class="hero-install-code">dotnet add package BlazorRetroOS</code>
+            <button class="hero-copy-btn"
+                    @onclick="CopyInstallCommand"
+                    title="Copy to clipboard">
+                @(_copied ? "✓" : "⧉")
+            </button>
+        </div>
+        <div class="hero-features">
+            <span class="hero-feature-pill">⚡ Server &amp; WASM</span>
+            <span class="hero-feature-pill">🎨 @Looks.Length looks</span>
+            <span class="hero-feature-pill">🔀 Appearance parameter</span>
+        </div>
+        <a href="static/index.html" class="hero-news">
+            <span class="hero-news-badge">CSS</span>
+            Use RetroOS on static sites too (HTML, PHP...), without Blazor
+            <span aria-hidden="true">→</span>
+        </a>
+    </div>
+
+    <RetroWindow Appearance="_preview" Title="Live Preview" ShowCloseButton="false" Class="hero-preview">
+        <div class="hero-theme-selector">
+            @foreach (var look in Looks)
+            {
+                <RetroButton Default="@(look == _preview)" OnClick="() => _preview = look">@MainLayout.AppearanceName(look)</RetroButton>
+            }
+        </div>
+        <RetroTextBox Label="Username" @bind-Value="_username" />
+        <p>
+            <RetroCheckBox @bind-Checked="_remember" Text="Remember me" />
+        </p>
+        <RetroProgressBar Value="_progress" />
+        <div class="hero-preview-buttons">
+            <RetroButton Default="true" OnClick="@(() => _progress = Math.Min(100, _progress + 10))">OK</RetroButton>
+            <RetroButton OnClick="@(() => _progress = 0)">Cancel</RetroButton>
+        </div>
+    </RetroWindow>
+</div>
+
+<RetroWindow Title="Welcome" OnClose="() => _closed = true" Style="@(_closed ? "display:none" : null)" Class="home-welcome">
+    <p>
+        Blazor components in the style of retro desktop operating systems.
+        Pick another look in the title bar of the screen: it only changes the Appearance parameter
+        of the screen, and everything inside follows. All the looks use the same class names.
+    </p>
+    <p>
+        Looks: Workbench 1.3, GEM (Atari ST). More to come.
+    </p>
+</RetroWindow>
+
+@if (_closed)
+{
+    <RetroButton OnClick="() => _closed = false">Open the Welcome window</RetroButton>
+}
+
+@code {
+    private static readonly Appearance[] Looks = Enum.GetValues<Appearance>();
+
+    private Appearance _preview = Appearance.AtariST;
+    private string? _username = "Christophe";
+    private bool _remember = true;
+    private double _progress = 30;
+    private bool _closed;
+    private bool _copied;
+
+    private async Task CopyInstallCommand()
+    {
+        await JS.InvokeVoidAsync("navigator.clipboard.writeText", "dotnet add package BlazorRetroOS");
+        _copied = true;
+        await Task.Delay(2000);
+        _copied = false;
+    }
+}

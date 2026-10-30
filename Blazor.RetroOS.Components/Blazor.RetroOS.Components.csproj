@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+
+		<RootNamespace>Blazor.RetroOS</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Package metadata -->
+		<PackageId>BlazorRetroOS</PackageId>
+		<Version>0.1.0</Version>
+		<Authors>Christophe Peugnet</Authors>
+		<Copyright>Copyright 2026</Copyright>
+		<Description>Blazor components in the style of retro desktop operating systems (Workbench 1.3 first, more to come). One stylesheet per OS with the same class names: switch the stylesheet to switch the look. For use with .NET 9.0 or higher Blazor applications</Description>
+		<PackageTags>blazor;components;retro;workbench;amiga;classic-mac;system7;ui</PackageTags>
+		<PackageProjectUrl>https://github.com/tossnet/Blazor-RetroOS</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/tossnet/Blazor-RetroOS.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReleaseNotes>v0.1.0 Full changelog: https://github.com/tossnet/Blazor-RetroOS/blob/main/CHANGELOG.md</PackageReleaseNotes>
+
+		<!-- Build and symbols -->
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<DebugType>portable</DebugType>
+
+		<!-- Trimming -->
+		<IsTrimmable>true</IsTrimmable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="icon.png" Pack="true" PackagePath="\" />
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.20" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.12" />
+	</ItemGroup>
+
+	<!-- Copies the themes (wwwroot/css/retroos-*.css) to static/dist (CSS for non-Blazor / static sites) on each build -->
+	<Import Project="StaticDist.targets" />
+
+</Project>

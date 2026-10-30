@@ -1,0 +1,21 @@
+@page "/install"
+
+<PageTitle>Installation</PageTitle>
+
+<RetroWindow Title="Installation" ShowCloseButton="false">
+    <h1>Installation</h1>
+
+    <p>Add the package:</p>
+    <pre class="demo-code">dotnet add package BlazorRetroOS</pre>
+
+    <p>In _Imports.razor:</p>
+    <pre class="demo-code">@@using Blazor.RetroOS.Components</pre>
+
+    <p>In index.html (or App.razor), the stylesheet with all the appearances:</p>
+    <pre class="demo-code">&lt;link href="_content/BlazorRetroOS/css/retroos.css" rel="stylesheet" /&gt;</pre>
+
+    <p>Then choose the look with the Appearance parameter, on any component (its children follow), and change it whenever you want:</p>
+    <pre class="demo-code">&lt;RetroScreen Title="My app" Appearance="Appearance.AtariST"&gt;...&lt;/RetroScreen&gt;</pre>
+
+    <p>Without Appearance, the components use the default look (Workbench 1.3).</p>
+</RetroWindow>

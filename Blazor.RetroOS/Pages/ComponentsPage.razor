@@ -1,0 +1,48 @@
+@page "/components"
+
+<PageTitle>Components</PageTitle>
+
+<div class="demo-grid">
+    <RetroWindow Title="Buttons" ShowCloseButton="false">
+        <RetroButton Default="true" OnClick="() => _clicks++">OK</RetroButton>
+        <RetroButton OnClick="() => _clicks++">Cancel</RetroButton>
+        <RetroButton Disabled="true">Disabled</RetroButton>
+        <p>Clicks: @_clicks</p>
+        <pre class="demo-code">&lt;RetroButton Default="true" OnClick="..."&gt;OK&lt;/RetroButton&gt;</pre>
+    </RetroWindow>
+
+    <RetroWindow Title="CheckBox" ShowCloseButton="false" Active="false">
+        <RetroCheckBox @bind-Checked="_checked" Text="Show all files" />
+        <br />
+        <RetroCheckBox Checked="true" Disabled="true" Text="Disabled" />
+        <p>Checked: @_checked</p>
+        <pre class="demo-code">&lt;RetroCheckBox @@bind-Checked="value" Text="..." /&gt;</pre>
+    </RetroWindow>
+
+    <RetroWindow Title="TextBox" ShowCloseButton="false" Active="false">
+        <RetroTextBox Label="Name" @bind-Value="_name" Placeholder="Your name" />
+        <br />
+        <RetroTextBox Label="Disk" Value="DF0:" Disabled="true" />
+        <p>Hello @_name</p>
+        <pre class="demo-code">&lt;RetroTextBox Label="Name" @@bind-Value="name" /&gt;</pre>
+    </RetroWindow>
+
+    <RetroWindow Title="ProgressBar" ShowCloseButton="false" Active="false">
+        <RetroProgressBar Value="_progress" />
+        <RetroButton OnClick="() => _progress = (_progress + 20) % 120">Step</RetroButton>
+        <pre class="demo-code">&lt;RetroProgressBar Value="40" Max="100" /&gt;</pre>
+    </RetroWindow>
+
+    <RetroWindow Title="Disabled window" Disabled="true" ShowCloseButton="false" Active="false">
+        <p>Disabled is cascaded to the controls of the window.</p>
+        <RetroButton>OK</RetroButton>
+        <RetroCheckBox Text="Option" />
+    </RetroWindow>
+</div>
+
+@code {
+    private int _clicks;
+    private bool _checked = true;
+    private string? _name = "Bob";
+    private double _progress = 40;
+}

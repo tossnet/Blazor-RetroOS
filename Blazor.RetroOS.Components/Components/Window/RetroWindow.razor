@@ -1,0 +1,27 @@
+@namespace Blazor.RetroOS.Components
+
+@inherits RetroComponentBase
+
+<div class="@RootClass(RetroCss.Window, Active ? RetroCss.WindowActive : null)"
+     style="@Style"
+     role="dialog"
+     aria-label="@Title"
+     @attributes="Attributes">
+    <div class="@RetroCss.TitleBar">
+        @if (ShowCloseButton)
+        {
+            <button type="button" class="@CssClass(RetroCss.Gadget, RetroCss.GadgetClose)" title="Close" aria-label="Close" @onclick="OnClose"></button>
+        }
+        <span class="@RetroCss.TitleBarText">@Title</span>
+        @if (ShowDepthButtons)
+        {
+            <button type="button" class="@CssClass(RetroCss.Gadget, RetroCss.GadgetBack)" title="Send to back" aria-label="Send to back" @onclick="OnSendToBack"></button>
+            <button type="button" class="@CssClass(RetroCss.Gadget, RetroCss.GadgetFront)" title="Bring to front" aria-label="Bring to front" @onclick="OnBringToFront"></button>
+        }
+    </div>
+    <div class="@RetroCss.WindowBody">
+        <CascadingValue Name="Disabled" Value="@Disabled">
+            @ChildContent
+        </CascadingValue>
+    </div>
+</div>

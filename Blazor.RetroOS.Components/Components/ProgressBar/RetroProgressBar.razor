@@ -1,0 +1,13 @@
+@namespace Blazor.RetroOS.Components
+
+@inherits RetroComponentBase
+
+<div class="@RootClass(RetroCss.Progress)"
+     style="@Style"
+     role="progressbar"
+     aria-valuemin="0"
+     aria-valuemax="@Max"
+     aria-valuenow="@ClampedValue"
+     @attributes="Attributes">
+    <div class="@RetroCss.ProgressBar" style="width: @(Percent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%"></div>
+</div>

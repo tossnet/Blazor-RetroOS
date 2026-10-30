@@ -1,0 +1,35 @@
+@inherits LayoutComponentBase
+
+@* The appearance of the screen is the appearance of everything inside it (retroos.css is loaded in index.html). *@
+<RetroScreen Title="Blazor.RetroOS" Appearance="_appearance" Class="demo-screen">
+    <TitleBarContent>
+        @foreach (var appearance in Enum.GetValues<Appearance>())
+        {
+            <button type="button"
+                    class="demo-theme-link @(appearance == _appearance ? "selected" : null)"
+                    @onclick="() => _appearance = appearance">@AppearanceName(appearance)</button>
+        }
+        <a class="demo-theme-link" href="https://github.com/tossnet/Blazor-RetroOS" target="_blank">GitHub</a>
+    </TitleBarContent>
+    <ChildContent>
+        <div class="page">
+            <div class="sidebar">
+                <NavMenu />
+            </div>
+            <main class="demo-main">
+                @Body
+            </main>
+        </div>
+    </ChildContent>
+</RetroScreen>
+
+@code {
+    private Appearance _appearance = Appearance.Amiga13;
+
+    public static string AppearanceName(Appearance appearance) => appearance switch
+    {
+        Appearance.Amiga13 => "Workbench 1.3",
+        Appearance.AtariST => "GEM (Atari ST)",
+        _ => appearance.ToString()
+    };
+}

@@ -1,0 +1,19 @@
+@namespace Blazor.RetroOS.Components
+
+@inherits RetroComponentBase
+
+<div class="@RootClass(RetroCss.Field)" style="@Style">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label class="@RetroCss.Label" for="@Id">@Label</label>
+    }
+    <input type="text"
+           id="@Id"
+           class="@RetroCss.TextBox"
+           value="@Value"
+           placeholder="@Placeholder"
+           maxlength="@MaxLength"
+           disabled="@IsDisabled"
+           @oninput="OnInputAsync"
+           @attributes="Attributes" />
+</div>

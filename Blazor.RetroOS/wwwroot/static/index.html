@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetroOS static CSS</title>
+  <!--
+    This page uses ONLY dist/retroos-*.css: no Blazor, no framework.
+    The HTML below is the markup rendered by the Blazor components.
+    Changing the theme only changes the href of the <link> below.
+  -->
+  <link id="retro-theme" rel="stylesheet" href="dist/retroos-amiga13.css" />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <style>
+    html, body { height: 100%; margin: 0; }
+    .demo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; align-items: start; }
+    select { font: inherit; }
+  </style>
+</head>
+<body>
+  <div class="retro-screen">
+    <div class="retro-screen-titlebar">
+      <span class="retro-screen-title">RetroOS: static CSS</span>
+      <label>Theme
+        <select id="theme">
+          <option value="retroos-amiga13.css">Workbench 1.3</option>
+          <option value="retroos-atarist.css">GEM (Atari ST)</option>
+        </select>
+      </label>
+    </div>
+    <div class="retro-screen-body">
+      <div class="demo-grid">
+
+        <div class="retro-window retro-window-active" role="dialog" aria-label="Controls">
+          <div class="retro-titlebar">
+            <button type="button" class="retro-gadget retro-gadget-close" aria-label="Close"></button>
+            <span class="retro-titlebar-text">Controls</span>
+            <button type="button" class="retro-gadget retro-gadget-back" aria-label="Send to back"></button>
+            <button type="button" class="retro-gadget retro-gadget-front" aria-label="Bring to front"></button>
+          </div>
+          <div class="retro-window-body">
+            <button type="button" class="retro-button retro-button-default">OK</button>
+            <button type="button" class="retro-button">Cancel</button>
+            <button type="button" class="retro-button" disabled>Disabled</button>
+            <p>
+              <label class="retro-checkbox">
+                <input type="checkbox" class="retro-checkbox-input" checked />
+                <span>Show all files</span>
+              </label>
+            </p>
+            <div class="retro-field">
+              <label class="retro-label" for="name">Name</label>
+              <input type="text" id="name" class="retro-textbox" value="Bob" />
+            </div>
+          </div>
+        </div>
+
+        <div class="retro-window" role="dialog" aria-label="Copying">
+          <div class="retro-titlebar">
+            <button type="button" class="retro-gadget retro-gadget-close" aria-label="Close"></button>
+            <span class="retro-titlebar-text">Copying</span>
+            <button type="button" class="retro-gadget retro-gadget-back" aria-label="Send to back"></button>
+            <button type="button" class="retro-gadget retro-gadget-front" aria-label="Bring to front"></button>
+          </div>
+          <div class="retro-window-body">
+            <p>Inactive window</p>
+            <div class="retro-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60">
+              <div class="retro-progress-bar" style="width: 60%"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('theme').addEventListener('change', function (e) {
+      document.getElementById('retro-theme').href = 'dist/' + e.target.value;
+    });
+  </script>
+</body>
+</html>

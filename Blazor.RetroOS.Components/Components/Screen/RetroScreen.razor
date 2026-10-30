@@ -1,0 +1,13 @@
+@namespace Blazor.RetroOS.Components
+
+@inherits RetroComponentBase
+
+<div class="@RootClass(RetroCss.Screen)" style="@Style" @attributes="Attributes">
+    <div class="@RetroCss.ScreenTitleBar">
+        <span class="@RetroCss.ScreenTitle">@Title</span>
+        @TitleBarContent
+    </div>
+    <div class="@RetroCss.ScreenBody">
+        @ChildContent
+    </div>
+</div>

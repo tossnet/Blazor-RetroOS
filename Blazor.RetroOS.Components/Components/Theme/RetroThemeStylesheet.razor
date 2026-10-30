@@ -1,0 +1,12 @@
+@namespace Blazor.RetroOS.Components
+
+@* Stylesheet of ONE appearance (instead of the retroos.css bundle). Changing Appearance swaps the look of every component. *@
+<link rel="stylesheet" href="@Appearance.ToStylesheetPath()" />
+
+@code {
+    /// <summary>
+    /// The appearance to load.
+    /// </summary>
+    [Parameter]
+    public Appearance Appearance { get; set; } = Appearance.Amiga13;
+}

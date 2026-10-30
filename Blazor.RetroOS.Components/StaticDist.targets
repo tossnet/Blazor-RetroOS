@@ -1,0 +1,178 @@
+<Project>
+
+	<!--
+		Stylesheets of RetroOS.
+
+		The components have no scoped CSS: all the styles are in one plain stylesheet per OS,
+		wwwroot/css/retroos-<os>.css, with the same retro- class names in every file (the sources).
+
+		1. Before each build, the Blazor bundle wwwroot/css/retroos.css is generated from them: every
+		   stylesheet wrapped in @scope (.retro-appearance-<os>) to (.retro-appearance-<other os>...),
+		   so that the Appearance parameter of a component (which adds the retro-appearance-<os> class)
+		   changes its look and the look of its children, at any time. The default appearance
+		   ($(RetroOSDefaultAppearance), the first value of the Appearance enum) is also scoped to :root.
+
+		2. After each build, the stylesheets (and the fonts they reference, if any) are copied to:
+
+		    static/dist/retroos-<os>.css
+		    static/dist/retroos.css
+		    static/dist/fonts/*
+
+		Never edit retroos.css or static/dist by hand: edit wwwroot/css/retroos-<os>.css and build.
+		The CI fails if the committed files are not in sync with the sources.
+	-->
+
+	<PropertyGroup>
+		<RetroOSStaticDistDir Condition="'$(RetroOSStaticDistDir)' == ''">$(MSBuildThisFileDirectory)..\static\dist\</RetroOSStaticDistDir>
+		<RetroOSDefaultAppearance Condition="'$(RetroOSDefaultAppearance)' == ''">amiga13</RetroOSDefaultAppearance>
+	</PropertyGroup>
+
+	<UsingTask TaskName="RetroOSBuildBundle"
+			   TaskFactory="RoslynCodeTaskFactory"
+			   AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+		<ParameterGroup>
+			<CssDir ParameterType="System.String" Required="true" />
+			<OutputFile ParameterType="System.String" Required="true" />
+			<DefaultAppearance ParameterType="System.String" Required="true" />
+			<Version ParameterType="System.String" Required="true" />
+		</ParameterGroup>
+		<Task>
+			<Using Namespace="System" />
+			<Using Namespace="System.IO" />
+			<Using Namespace="System.Linq" />
+			<Using Namespace="System.Text" />
+			<Using Namespace="System.Text.RegularExpressions" />
+			<Code Type="Fragment" Language="cs"><![CDATA[
+				var themes = Directory.GetFiles(CssDir, "retroos-*.css")
+					.OrderBy(f => f, StringComparer.Ordinal)
+					.Select(f => new { Path = f, Key = Path.GetFileNameWithoutExtension(f).Substring("retroos-".Length) })
+					.ToList();
+
+				if (!themes.Any(t => t.Key == DefaultAppearance))
+				{
+					Log.LogError("RetroOS bundle: default appearance '" + DefaultAppearance + "' has no retroos-" + DefaultAppearance + ".css in " + CssDir);
+					return false;
+				}
+
+				var sb = new StringBuilder();
+				sb.Append("/*!\n");
+				sb.Append(" * Blazor.RetroOS v" + Version + " - all the appearances, for the Appearance parameter of the components\n");
+				sb.Append(" * https://github.com/tossnet/Blazor-RetroOS - MIT License\n");
+				sb.Append(" * The class retro-appearance-<os> applies an appearance to an element and its children.\n");
+				sb.Append(" * Default appearance: " + DefaultAppearance + ".\n");
+				sb.Append(" * GENERATED FILE - DO NOT EDIT: regenerated on each build of Blazor.RetroOS.Components from retroos-<os>.css.\n");
+				sb.Append(" */\n");
+
+				// Inside @scope, a selector without :scope only matches the DESCENDANTS of the scope root, so
+				// <button class="retro-button retro-appearance-atarist"> would not be styled. :where(:scope, *)
+				// is added to the first compound of each selector: with :scope in it, the selector also
+				// matches the root (still limited to the scope), and :where keeps the specificity unchanged.
+				Func<string, string> matchRoot = selector =>
+				{
+					var s = selector.Trim();
+					if (s.Contains(":scope") || s.StartsWith("from") || s.StartsWith("to") || Regex.IsMatch(s, @"^\d"))
+						return selector;
+					int depth = 0, end = s.Length;
+					for (var i = 0; i < s.Length; i++)
+					{
+						var c = s[i];
+						if (c == '(' || c == '[') depth++;
+						else if (c == ')' || c == ']') depth--;
+						else if (depth == 0 && (char.IsWhiteSpace(c) || c == '>' || c == '+' || c == '~')) { end = i; break; }
+						else if (depth == 0 && c == ':' && i + 1 < s.Length && s[i + 1] == ':') { end = i; break; }
+					}
+					return s.Substring(0, end) + ":where(:scope, *)" + s.Substring(end);
+				};
+
+				// Splits a selector list on its top-level commas (not the ones of :is(), :where()...).
+				Func<string, System.Collections.Generic.List<string>> splitList = list =>
+				{
+					var parts = new System.Collections.Generic.List<string>();
+					int depth = 0, start = 0;
+					for (var i = 0; i < list.Length; i++)
+					{
+						var c = list[i];
+						if (c == '(' || c == '[') depth++;
+						else if (c == ')' || c == ']') depth--;
+						else if (c == ',' && depth == 0) { parts.Add(list.Substring(start, i - start)); start = i + 1; }
+					}
+					parts.Add(list.Substring(start));
+					return parts;
+				};
+
+				foreach (var theme in themes)
+				{
+					var css = File.ReadAllText(theme.Path).Replace("\r\n", "\n").TrimStart((char)0xFEFF);
+					// No comments: the bundle has its own header.
+					css = Regex.Replace(css, @"/\*[\s\S]*?\*/", "");
+					// Variables are defined on the scope root instead of the document.
+					css = Regex.Replace(css, @":root(?![\w-])", ":scope");
+					// Style rules (not the at-rules): every selector may match the scope root.
+					css = Regex.Replace(css, @"(^|[{};])(\s*)([^{};@]+?)(\s*)\{", m =>
+						m.Groups[1].Value + m.Groups[2].Value
+						+ string.Join(",\n", splitList(m.Groups[3].Value).Select(p => matchRoot(p)))
+						+ " {");
+					// Lighter file: no empty lines
+					css = string.Join("\n", css.Split('\n').Where(l => l.Trim().Length > 0));
+
+					var roots = ".retro-appearance-" + theme.Key + (theme.Key == DefaultAppearance ? ", :root" : "");
+					var limits = string.Join(", ", themes.Where(t => t.Key != theme.Key).Select(t => ".retro-appearance-" + t.Key));
+
+					sb.Append("\n/* --- retroos-" + theme.Key + ".css --- */\n");
+					sb.Append("@scope (" + roots + ")" + (limits.Length > 0 ? " to (" + limits + ")" : "") + " {\n");
+					sb.Append(css.TrimEnd());
+					sb.Append("\n}\n");
+				}
+
+				var bytes = new UTF8Encoding(false).GetBytes(sb.ToString());
+				for (var attempt = 0; ; attempt++)
+				{
+					try
+					{
+						if (File.Exists(OutputFile) && File.ReadAllBytes(OutputFile).SequenceEqual(bytes))
+							break;
+						File.WriteAllBytes(OutputFile, bytes);
+						break;
+					}
+					catch (IOException) when (attempt < 5)
+					{
+						// Several target frameworks may build in parallel.
+						System.Threading.Thread.Sleep(200);
+					}
+				}
+
+				Log.LogMessage(MessageImportance.Normal, "RetroOS bundle -> " + OutputFile);
+			]]></Code>
+		</Task>
+	</UsingTask>
+
+	<!-- Before the static web assets are collected, so that the package always contains the fresh bundle. -->
+	<Target Name="RetroOSGenerateBundle" BeforeTargets="BeforeBuild">
+		<RetroOSBuildBundle CssDir="$(MSBuildThisFileDirectory)wwwroot\css"
+							OutputFile="$(MSBuildThisFileDirectory)wwwroot\css\retroos.css"
+							DefaultAppearance="$(RetroOSDefaultAppearance)"
+							Version="$(Version)" />
+	</Target>
+
+	<Target Name="RetroOSGenerateStaticDist"
+			AfterTargets="Build"
+			Condition="'$(TargetFramework)' != ''">
+		<ItemGroup>
+			<_RetroOSTheme Include="$(MSBuildThisFileDirectory)wwwroot\css\retroos*.css" />
+			<_RetroOSFont Include="$(MSBuildThisFileDirectory)wwwroot\fonts\*" />
+		</ItemGroup>
+		<!-- Several target frameworks may build in parallel: a few retries if the file is locked. -->
+		<Copy SourceFiles="@(_RetroOSTheme)"
+			  DestinationFolder="$(RetroOSStaticDistDir)"
+			  SkipUnchangedFiles="true"
+			  Retries="5"
+			  RetryDelayMilliseconds="200" />
+		<Copy SourceFiles="@(_RetroOSFont)"
+			  DestinationFolder="$(RetroOSStaticDistDir)fonts"
+			  SkipUnchangedFiles="true"
+			  Retries="5"
+			  RetryDelayMilliseconds="200" />
+		<Message Importance="normal" Text="RetroOS static CSS -> $(RetroOSStaticDistDir)" />
+	</Target>
+
+</Project>
