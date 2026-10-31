@@ -11,7 +11,7 @@
         <CodeBlock Code="@ButtonCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
     </RetroWindow>
 
-    <RetroWindow Title="CheckBox" ShowCloseButton="false" Active="false">
+    <RetroWindow Title="CheckBox" Active="false">
         <RetroCheckBox @bind-Checked="_checked" Text="Show all files" />
         <br />
         <RetroCheckBox Checked="true" Disabled="true" Text="Disabled" />
@@ -19,7 +19,7 @@
         <CodeBlock Code="@CheckBoxCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
     </RetroWindow>
 
-    <RetroWindow Title="TextBox" ShowCloseButton="false" Active="false">
+    <RetroWindow Title="TextBox" Active="false">
         <RetroTextBox Label="Name" @bind-Value="_name" Placeholder="Your name" />
         <br />
         <RetroTextBox Label="Disk" Value="DF0:" Disabled="true" />
@@ -27,13 +27,13 @@
         <CodeBlock Code="@TextBoxCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
     </RetroWindow>
 
-    <RetroWindow Title="ProgressBar" ShowCloseButton="false" Active="false">
+    <RetroWindow Title="ProgressBar" Active="false">
         <RetroProgressBar Value="_progress" />
         <RetroButton OnClick="() => _progress = (_progress + 20) % 120">Step</RetroButton>
         <CodeBlock Code="@ProgressBarCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
     </RetroWindow>
 
-    <RetroWindow Title="Disabled window" Disabled="true" ShowCloseButton="false" Active="false">
+    <RetroWindow Title="Disabled window" Disabled="true" Active="false">
         <p>Disabled is cascaded to the controls of the window.</p>
         <RetroButton>OK</RetroButton>
         <RetroCheckBox Text="Option" />

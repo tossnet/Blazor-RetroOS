@@ -19,6 +19,7 @@ public static class AppearanceExtensions
     {
         Appearance.Amiga13 => "amiga13",
         Appearance.AtariST => "atarist",
+        Appearance.System7 => "system7",
         _ => throw new ArgumentOutOfRangeException(nameof(appearance), appearance, null)
     };
 

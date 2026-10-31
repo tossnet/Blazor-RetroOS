@@ -11,4 +11,7 @@ public enum Appearance
 
     /// <summary>GEM desktop style of the Atari ST (retroos-atarist.css).</summary>
     AtariST,
+
+    /// <summary>System 7 style of the classic Mac (retroos-system7.css).</summary>
+    System7,
 }

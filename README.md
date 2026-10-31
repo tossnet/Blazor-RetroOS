@@ -9,8 +9,9 @@ A Blazor UI component library in the style of retro desktop operating systems.
 |------------|------|------------------|
 | `Appearance.Amiga13` (default) | Workbench 1.3 style | `retroos-amiga13.css` |
 | `Appearance.AtariST` | GEM desktop style (Atari ST) | `retroos-atarist.css` |
+| `Appearance.System7` | System 7 style (classic Mac) | `retroos-system7.css` |
 
-More to come (Workbench 3.0, Classic Mac / System 7 style...).
+More to come (Workbench 3.0...).
 
 **Compatible with Blazor Server and Blazor WebAssembly**
 
@@ -41,7 +42,7 @@ Every component has an `Appearance` parameter. It applies to the component **and
 
 ```razor
 <RetroScreen Title="My application" Appearance="appearance">
-    <RetroWindow Title="Settings">                          @* GEM, like its screen *@
+    <RetroWindow Title="Settings">
         <RetroButton OnClick="() => appearance = Appearance.Amiga13">Workbench</RetroButton>
         <RetroButton Appearance="Appearance.Amiga13">Always Workbench</RetroButton>
     </RetroWindow>
@@ -102,10 +103,13 @@ The class names rendered by the components are listed in `RetroCss`, and every `
 |------------|------------------------|------|
 | Workbench 1.3 | `RetroOS Double Serif` | **included**, `css/fonts/retroos-double-serif.woff2` (4 KB) |
 | GEM (Atari ST) | `RetroOS ST System` | **included**, `css/fonts/retroos-st-system.woff2` (6 KB) |
+| System 7 | `RetroOS ChiKareGo2` | **included**, `css/fonts/retroos-chikarego2.woff2` (4 KB) |
 
 `RetroOS Double Serif` is an 8x16 pixel font: at the 16px size of the stylesheet, one pixel of the font is one CSS pixel. It is converted from [Topaz Double Serif](https://github.com/amigavision/TopazDouble) by Alex Limi, a hand-drawn, double-height recreation of the Workbench 1.x system font (Amiga bitmap format), released under the MIT License. The conversion (`tools/fonts/amiga_font_to_woff2.py`) keeps the pixel grid exactly; the font is renamed so that its name contains no trademark. Its license is next to it: `css/fonts/retroos-double-serif.LICENSE.txt` (also in `static/dist/fonts`).
 
 `RetroOS ST System` is also an 8x16 pixel font. It is converted from [Atarist](https://github.com/ntwk/atarist-font) by ntwk, released under the BSD 3-Clause License: a rebranding of the high-resolution system font of the Atari ST (BDF format), extended with Cyrillic. The conversion (`tools/fonts/bdf_font_to_woff2.py`) keeps the pixel grid exactly, and the font is renamed the same way. Its license: `css/fonts/retroos-st-system.LICENSE.txt`. Note that Atarist reproduces the glyphs of the original system font: its author releases it under the BSD license, but the rights on the original design were never released by their holders.
+
+`RetroOS ChiKareGo2` is a proportional pixel font, 12px high: at the 12px size of the stylesheet, one pixel of the font is one CSS pixel. It is converted from [ChiKareGo2](http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=3780) by Giles Booth, licensed under the Creative Commons Attribution license (CC BY), an interpretation of the classic Mac system font made with BitFontMaker2. The conversion (`tools/fonts/ttf_font_to_woff2.py`) keeps the glyphs unchanged and renames the font. Its license and attribution: `css/fonts/retroos-chikarego2.LICENSE.txt`. The font covers ASCII and most of Latin-1, but not `ù`, `ú`, `ý`, `ÿ`, `œ`... : these characters are drawn with the fallback font. Note that the font is under CC BY, not MIT: keep its license file and credit when you redistribute it.
 
 The stylesheets declare their fonts with `url("fonts/...")`, relative to the stylesheet: keep the `fonts` folder next to the CSS files when you copy them (static sites).
 
@@ -120,3 +124,5 @@ To use another font, override the variable after the RetroOS stylesheet:
 - [TAWS, The Amiga Workbench Simulation](https://taws.ch/WB.html) by Michael Rupp: a very faithful reproduction of every Workbench version, used as a visual reference for the Workbench appearances (nothing is copied from it: © Michael Rupp, all rights reserved).
 - [amigavision/TopazDouble](https://github.com/amigavision/TopazDouble) by Alex Limi (MIT License): the Topaz Double Serif font, converted to `RetroOS Double Serif` for the Workbench 1.3 appearance (see Fonts).
 - [ntwk/atarist-font](https://github.com/ntwk/atarist-font) by ntwk (BSD 3-Clause License): the Atarist font, converted to `RetroOS ST System` for the GEM (Atari ST) appearance (see Fonts).
+- [ChiKareGo2](http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=3780) by Giles Booth (Creative Commons Attribution license, CC BY), Copyright © Giles Booth: the ChiKareGo2 font, converted to `RetroOS ChiKareGo2` for the System 7 appearance (see Fonts).
+- [https://infinitemac.org/](https://infinitemac.org/) emulators 

@@ -146,6 +146,38 @@ public class ThemeContractTests
         Assert.Contains(family, FontFaces(css).Select(f => f.Family));
     }
 
+    // System 7: proportional pixel font, 12px high (one font pixel per CSS pixel at 12px).
+    [Fact]
+    public void System7_UsesTheBundledFontFirst()
+    {
+        var css = ReadTheme(Appearance.System7);
+        var font = Regex.Match(css, @"--retro-font:\s*([^;]+);").Groups[1].Value;
+
+        Assert.StartsWith("\"RetroOS ChiKareGo2\"", font);
+        Assert.EndsWith("sans-serif", font);
+        Assert.Equal("12px", Regex.Match(css, @"--retro-font-size:\s*([^;]+);").Groups[1].Value.Trim());
+        Assert.Contains(("RetroOS ChiKareGo2", "fonts/retroos-chikarego2.woff2"), FontFaces(css));
+    }
+
+    // Every appearance has its own bundled font.
+    [Theory]
+    [MemberData(nameof(Themes))]
+    public void Theme_HasABundledFont(Appearance theme)
+    {
+        Assert.NotEmpty(FontFaces(ReadTheme(theme)));
+    }
+
+    // CC BY: the license of ChiKareGo2 credits its author and links to the source.
+    [Fact]
+    public void ChiKareGo2_LicenseCreditsTheAuthor()
+    {
+        var license = File.ReadAllText(Path.Combine(ThemesDir, "fonts", "retroos-chikarego2.LICENSE.txt"));
+
+        Assert.Contains("Giles Booth", license);
+        Assert.Contains("Creative Commons Attribution", license);
+        Assert.Contains("http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=3780", license);
+    }
+
     // (family, url) of the @font-face rules of a stylesheet.
     private static IEnumerable<(string Family, string Url)> FontFaces(string css)
         => Regex.Matches(css, @"@font-face\s*\{([^}]*)\}")
@@ -308,6 +340,61 @@ public class ThemeContractTests
         var rule = Regex.Match(css, @"\.retro-window:not\(\.retro-window-active\) > \.retro-titlebar > \.retro-gadget \{([^}]*)\}").Groups[1].Value;
 
         Assert.Contains("display: none;", rule);
+    }
+
+    // System 7 push buttons: the rounded line is a 9-slice image 4px wide over a 1px transparent border, so that
+    // the background (clipped to the padding box) fills exactly the inside of the line, whatever its color.
+    [Fact]
+    public void System7_Button_IsARoundedLineDrawnPixelByPixel()
+    {
+        var css = ReadTheme(Appearance.System7);
+        var button = Regex.Match(css, @"\n\.retro-button \{([^}]*)\}").Groups[1].Value;
+
+        Assert.Contains("min-height: 20px;", button);
+        Assert.Contains("border: 1px solid transparent;", button);
+        Assert.Contains("background-clip: padding-box;", button);
+        Assert.Matches(@"border-image: url\(""data:image/svg\+xml,[^""]*width='9' height='9' shape-rendering='crispEdges'[^""]*""\) 4 / 4px;", button);
+        // Only the black line: no white pixels in the image.
+        Assert.DoesNotContain("%23fff", button);
+    }
+
+    // Pressed: filled black, white text. Disabled: gray text (#888888 measured on the real one), the line stays black.
+    [Fact]
+    public void System7_Button_PressedAndDisabled()
+    {
+        var css = ReadTheme(Appearance.System7);
+
+        var pressed = Regex.Match(css, @"\.retro-button:not\(:disabled\):active \{([^}]*)\}").Groups[1].Value;
+        Assert.Contains("background-color: var(--retro-shadow);", pressed);
+        Assert.Contains("color: var(--retro-highlight);", pressed);
+
+        var disabled = Regex.Match(css, @"\.retro-button:disabled \{([^}]*)\}").Groups[1].Value;
+        Assert.Contains("color: var(--retro-disabled);", disabled);
+        Assert.DoesNotContain("border", disabled);
+        Assert.Equal("#888888", Regex.Match(css, @"--retro-disabled:\s*([^;]+);").Groups[1].Value.Trim());
+    }
+
+    // Default button: a 3px ring 1px away from the button, black, gray when disabled, outside its box.
+    [Fact]
+    public void System7_DefaultButton_HasAThickRing()
+    {
+        var css = ReadTheme(Appearance.System7);
+
+        var ring = Regex.Match(css, @"\.retro-button-default::before \{([^}]*)\}").Groups[1].Value;
+        Assert.Contains("inset: -5px;", ring);
+        Assert.Contains("border: 7px solid transparent;", ring);
+        Assert.Contains("width='15' height='15'", ring);
+        Assert.Contains("%23000", ring);
+        Assert.Contains("pointer-events: none;", ring);
+
+        var disabled = Regex.Match(css, @"\.retro-button-default:disabled::before \{([^}]*)\}").Groups[1].Value;
+        Assert.Contains("%23888", disabled);
+
+        // The ring (4px) is drawn in the margin of the button: same margin as the other buttons, still aligned.
+        var button = Regex.Match(css, @"\n\.retro-button \{([^}]*)\}").Groups[1].Value;
+        Assert.Contains("margin: 4px;", button);
+        var box = Regex.Match(css, @"\n\s*\.retro-button-default \{([^}]*)\}").Groups[1].Value;
+        Assert.DoesNotContain("margin", box);
     }
 
     [Fact]

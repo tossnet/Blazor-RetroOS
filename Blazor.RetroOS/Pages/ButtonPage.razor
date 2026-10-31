@@ -1,0 +1,100 @@
+@page "/button-page"
+
+<PageTitle>Button</PageTitle>
+
+<div class="demo-grid">
+    <RetroWindow Title="Button" ShowCloseButton="false">
+        <h1>Button</h1>
+        <div class="demo-button-grid">
+            @foreach (var appearance in Enum.GetValues<Appearance>())
+            {
+                <span>@MainLayout.AppearanceName(appearance)</span>
+                <RetroButton Appearance="appearance">Click me</RetroButton>
+                <RetroButton Appearance="appearance" Disabled>Click me</RetroButton>
+                <RetroButton Appearance="appearance" Default="true">Default</RetroButton>
+            }
+        </div>
+        <CodeBlock Code="@AppearanceCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
+    </RetroWindow>
+
+    <RetroWindow Title="System 7 dialog" Appearance="Appearance.System7" Active="false">
+        <p>Disabled, normal, pressed (hold the click) and default buttons.</p>
+        <div class="demo-button-stack">
+            <RetroButton Disabled>Eject</RetroButton>
+            <RetroButton>Desktop</RetroButton>
+            <hr class="demo-separator" />
+            <RetroButton>Cancel</RetroButton>
+            <RetroButton>New</RetroButton>
+            <RetroButton Default="true">Open</RetroButton>
+        </div>
+        <CodeBlock Code="@System7Code" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
+    </RetroWindow>
+
+    <RetroWindow Title="Event" Active="false">
+        <h2>OnClick</h2>
+        <RetroButton OnClick="() => _clicks++">Click me</RetroButton>
+        <p>Clicks: @_clicks</p>
+        <CodeBlock Code="@EventCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
+    </RetroWindow>
+
+    <RetroWindow Title="Behavior" Active="false">
+        <h2>Default</h2>
+        <p>The default button of a requester, drawn with a thicker frame.</p>
+        <RetroButton Default="true">OK</RetroButton>
+        <RetroButton>Cancel</RetroButton>
+
+        <h2>Disabled</h2>
+        <p>Set on the button, or cascaded by a disabled window.</p>
+        <RetroCheckBox @bind-Checked="_disabled" Text="Disabled" />
+        <br />
+        <RetroButton Disabled="_disabled" OnClick="() => _clicks++">Click me</RetroButton>
+
+        <h2>Type</h2>
+        <p>"button" by default, "submit" or "reset" in a form.</p>
+        <CodeBlock Code="@BehaviorCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
+    </RetroWindow>
+
+    <RetroWindow Title="Custom style" Active="false">
+        <RetroButton Default="true" Class="demo-custom-btn">
+            <span class="bi bi-file-earmark" aria-hidden="true"></span>
+            Click me
+        </RetroButton>
+        <CodeBlock Code="@CustomStyleCode" Language="CodeLanguage.Razor" EnableLineNumbers="false" />
+    </RetroWindow>
+</div>
+
+@code {
+    private int _clicks;
+    private bool _disabled = true;
+
+    private const string AppearanceCode = @"<RetroButton Appearance=""Appearance.AtariST"">Click me</RetroButton>
+
+<RetroButton Appearance=""Appearance.Amiga13""
+             Disabled>Click me</RetroButton>";
+
+    private const string System7Code = @"<RetroWindow Title=""Open"" Appearance=""Appearance.System7"">
+    <RetroButton Disabled>Eject</RetroButton>
+    <RetroButton>Desktop</RetroButton>
+    <RetroButton>Cancel</RetroButton>
+    <RetroButton>New</RetroButton>
+    <RetroButton Default=""true"">Open</RetroButton>
+</RetroWindow>";
+
+    private const string EventCode = @"<RetroButton OnClick=""() => _clicks++"">Click me</RetroButton>";
+
+    private const string BehaviorCode = @"<RetroButton Default=""true"">OK</RetroButton>
+<RetroButton Disabled=""true"">Click me</RetroButton>
+<RetroButton Type=""submit"">Save</RetroButton>";
+
+    private const string CustomStyleCode = @"<style>
+    .retro-button.custom-btn {
+        background-color: #594ae2;
+        color: white;
+    }
+</style>
+
+<RetroButton Default=""true"" Class=""custom-btn"">
+    <span class=""bi bi-file-earmark""></span>
+    Click me
+</RetroButton>";
+}

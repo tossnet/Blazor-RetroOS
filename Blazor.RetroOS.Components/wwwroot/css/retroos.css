@@ -17,9 +17,14 @@
     src: url("fonts/retroos-st-system.woff2") format("woff2");
     font-display: block;
 }
+@font-face {
+    font-family: "RetroOS ChiKareGo2";
+    src: url("fonts/retroos-chikarego2.woff2") format("woff2");
+    font-display: block;
+}
 
 /* --- retroos-amiga13.css --- */
-@scope (.retro-appearance-amiga13, :root) to (.retro-appearance-atarist) {
+@scope (.retro-appearance-amiga13, :root) to (.retro-appearance-atarist, .retro-appearance-system7) {
 :scope {
     --retro-font: "RetroOS Double Serif", "Courier New", monospace;
     --retro-font-size: 16px;
@@ -385,7 +390,7 @@
 }
 
 /* --- retroos-atarist.css --- */
-@scope (.retro-appearance-atarist) to (.retro-appearance-amiga13) {
+@scope (.retro-appearance-atarist) to (.retro-appearance-amiga13, .retro-appearance-system7) {
 :scope {
     --retro-font: "RetroOS ST System", "Courier New", monospace;
     --retro-font-size: 16px;
@@ -715,5 +720,332 @@
     height: 100%;
     max-width: 100%;
     background: var(--retro-pattern);
+}
+}
+
+/* --- retroos-system7.css --- */
+@scope (.retro-appearance-system7) to (.retro-appearance-amiga13, .retro-appearance-atarist) {
+:scope {
+    --retro-font: "RetroOS ChiKareGo2", "Geneva", "Helvetica Neue", Arial, sans-serif;
+    --retro-font-size: 12px;
+    --retro-font-weight: bold;
+    --retro-desktop: #808080;
+    --retro-background: #ffffff;
+    --retro-text: #000000;
+    --retro-highlight: #ffffff;
+    --retro-shadow: #000000;
+    --retro-accent: #000000;
+    --retro-disabled: #888888;
+    --retro-line: 1px;
+    --retro-bar-height: 20px;
+    --retro-pattern: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0 / 2px 2px;
+}
+.retro-screen:where(:scope, *),
+.retro-window:where(:scope, *),
+.retro-gadget:where(:scope, *),
+.retro-button:where(:scope, *),
+.retro-checkbox:where(:scope, *),
+.retro-checkbox-input:where(:scope, *),
+.retro-label:where(:scope, *),
+.retro-field:where(:scope, *),
+.retro-textbox:where(:scope, *),
+.retro-progress:where(:scope, *) {
+    box-sizing: border-box;
+    line-height: normal;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+    font-style: normal;
+    font-weight: var(--retro-font-weight);
+    font-synthesis: none;
+}
+.retro-gadget:where(:scope, *),
+.retro-button:where(:scope, *),
+.retro-checkbox-input:where(:scope, *),
+.retro-textbox:where(:scope, *) {
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    border-radius: 0;
+    box-shadow: none;
+}
+.retro-screen:where(:scope, *) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    box-sizing: border-box;
+    background: var(--retro-pattern);
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+.retro-screen:where(:scope, *) *,
+.retro-screen:where(:scope, *) *::before,
+.retro-screen:where(:scope, *) *::after {
+    box-sizing: border-box;
+}
+.retro-screen-titlebar:where(:scope, *) {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: var(--retro-bar-height);
+    padding: 0 12px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border-bottom: var(--retro-line) solid var(--retro-shadow);
+    white-space: nowrap;
+    flex: none;
+}
+.retro-screen-title:where(:scope, *) {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.retro-screen-body:where(:scope, *) {
+    position: relative;
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+.retro-window:where(:scope, *) {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    box-shadow: 1px 1px 0 var(--retro-shadow);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+.retro-titlebar:where(:scope, *) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: content-box;
+    height: 17px;
+    padding: 0 8px;
+    background: var(--retro-background);
+    color: var(--retro-disabled);
+    border-bottom: var(--retro-line) solid var(--retro-shadow);
+    -webkit-user-select: none;
+    user-select: none;
+    flex: none;
+}
+.retro-window-active:where(:scope, *) > .retro-titlebar {
+    color: var(--retro-text);
+    background:
+        repeating-linear-gradient(to bottom, var(--retro-shadow) 0 1px, var(--retro-background) 1px 2px) 1px 3px / calc(100% - 2px) 11px no-repeat,
+        var(--retro-background);
+}
+.retro-titlebar-text:where(:scope, *) {
+    flex: 0 1 auto;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 0 6px;
+    background: var(--retro-background);
+    line-height: 17px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+    .retro-titlebar-text:empty:where(:scope, *) {
+        visibility: hidden;
+    }
+.retro-window-body:where(:scope, *) {
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+.retro-gadget:where(:scope, *) {
+    position: relative;
+    width: 11px;
+    height: 11px;
+    flex: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    box-shadow: inset 0 0 0 1px var(--retro-shadow), 0 0 0 1px var(--retro-background);
+    cursor: pointer;
+}
+    .retro-gadget:where(:scope, *)::before,
+.retro-gadget:where(:scope, *)::after {
+        content: "";
+        position: absolute;
+    }
+    .retro-gadget:focus-visible:where(:scope, *) {
+        outline: var(--retro-line) dotted var(--retro-shadow);
+        outline-offset: 2px;
+    }
+    .retro-gadget:active:where(:scope, *)::before {
+        visibility: hidden;
+    }
+    .retro-gadget:active:where(:scope, *)::after {
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' shape-rendering='crispEdges'%3E%3Cpath fill='%23000' d='M0 0h11v11H0z'/%3E%3Cpath fill='%2399c' d='M1 1h9v9H1z'/%3E%3Cpath fill='%23000' d='M5 1h1v3H5zM5 7h1v3H5zM1 5h3v1H1zM7 5h3v1H7zM2 2h1v1H2zM3 3h1v1H3zM8 2h1v1H8zM7 3h1v1H7zM2 8h1v1H2zM3 7h1v1H3zM8 8h1v1H8zM7 7h1v1H7z'/%3E%3C/svg%3E") 0 0 / 11px 11px no-repeat;
+    }
+.retro-window:not(.retro-window-active):where(:scope, *) > .retro-titlebar > .retro-gadget {
+    visibility: hidden;
+}
+.retro-gadget-back:where(:scope, *) {
+    display: none;
+}
+.retro-gadget-close:where(:scope, *) {
+    order: -1;
+}
+.retro-gadget-front:where(:scope, *)::before {
+    top: 0;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    box-shadow: inset 0 0 0 1px var(--retro-shadow);
+}
+.retro-button:where(:scope, *) {
+    position: relative;
+    min-width: 58px;
+    min-height: 20px;
+    margin: 4px;
+    padding: 0 11px;
+    background: var(--retro-background);
+    background-clip: padding-box;
+    color: var(--retro-text);
+    border: 1px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' shape-rendering='crispEdges'%3E%3Cpath fill='%23000' d='M3 0h3v1H3zM1 1h2v1H1zM6 1h2v1H6zM1 2h1v1H1zM7 2h1v1H7zM0 3h1v1H0zM8 3h1v1H8zM0 4h1v1H0zM8 4h1v1H8zM0 5h1v1H0zM8 5h1v1H8zM1 6h1v1H1zM7 6h1v1H7zM1 7h2v1H1zM6 7h2v1H6zM3 8h3v1H3z'/%3E%3C/svg%3E") 4 / 4px;
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.retro-button:not(:disabled):active:where(:scope, *) {
+    background-color: var(--retro-shadow);
+    color: var(--retro-highlight);
+}
+.retro-button:disabled:where(:scope, *) {
+    color: var(--retro-disabled);
+    cursor: default;
+}
+.retro-button:focus-visible:where(:scope, *) {
+    outline: var(--retro-line) dotted var(--retro-shadow);
+    outline-offset: -3px;
+}
+.retro-button-default:where(:scope, *) {
+    border-image-source: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' shape-rendering='crispEdges'%3E%3Cpath fill='%23000' d='M2 0h5v1H2zM1 1h2v1H1zM6 1h2v1H6zM0 2h2v1H0zM7 2h2v1H7zM0 3h1v1H0zM8 3h1v1H8zM0 4h1v1H0zM8 4h1v1H8zM0 5h1v1H0zM8 5h1v1H8zM0 6h2v1H0zM7 6h2v1H7zM1 7h2v1H1zM6 7h2v1H6zM2 8h5v1H2z'/%3E%3C/svg%3E");
+}
+    .retro-button-default:where(:scope, *)::before {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        border: 7px solid transparent;
+        border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' shape-rendering='crispEdges'%3E%3Cpath fill='%23000' d='M5 0h5v1H5zM3 1h9v1H3zM2 2h11v1H2zM1 3h5v1H1zM9 3h5v1H9zM1 4h3v1H1zM11 4h3v1H11zM0 5h4v1H0zM11 5h4v1H11zM0 6h3v1H0zM12 6h3v1H12zM0 7h3v1H0zM12 7h3v1H12zM0 8h3v1H0zM12 8h3v1H12zM0 9h4v1H0zM11 9h4v1H11zM1 10h3v1H1zM11 10h3v1H11zM1 11h5v1H1zM9 11h5v1H9zM2 12h11v1H2zM3 13h9v1H3zM5 14h5v1H5z'/%3E%3C/svg%3E") 7;
+        pointer-events: none;
+    }
+    .retro-button-default:disabled:where(:scope, *)::before {
+        border-image-source: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' shape-rendering='crispEdges'%3E%3Cpath fill='%23888' d='M5 0h5v1H5zM3 1h9v1H3zM2 2h11v1H2zM1 3h5v1H1zM9 3h5v1H9zM1 4h3v1H1zM11 4h3v1H11zM0 5h4v1H0zM11 5h4v1H11zM0 6h3v1H0zM12 6h3v1H12zM0 7h3v1H0zM12 7h3v1H12zM0 8h3v1H0zM12 8h3v1H12zM0 9h4v1H0zM11 9h4v1H11zM1 10h3v1H1zM11 10h3v1H11zM1 11h5v1H1zM9 11h5v1H9zM2 12h11v1H2zM3 13h9v1H3zM5 14h5v1H5z'/%3E%3C/svg%3E");
+    }
+.retro-checkbox:where(:scope, *) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+}
+.retro-checkbox-input:where(:scope, *) {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 12px;
+    height: 12px;
+    margin: 0;
+    flex: none;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-shadow);
+    cursor: inherit;
+}
+    .retro-checkbox-input:checked:where(:scope, *) {
+        border: 0;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Cpath fill='%23000' d='M0 0h12v1H0zM0 1h2v1H0zM10 1h2v1H10zM0 2h1v1H0zM2 2h1v1H2zM9 2h1v1H9zM11 2h1v1H11zM0 3h1v1H0zM3 3h1v1H3zM8 3h1v1H8zM11 3h1v1H11zM0 4h1v1H0zM4 4h1v1H4zM7 4h1v1H7zM11 4h1v1H11zM0 5h1v1H0zM5 5h2v1H5zM11 5h1v1H11zM0 6h1v1H0zM5 6h2v1H5zM11 6h1v1H11zM0 7h1v1H0zM4 7h1v1H4zM7 7h1v1H7zM11 7h1v1H11zM0 8h1v1H0zM3 8h1v1H3zM8 8h1v1H8zM11 8h1v1H11zM0 9h1v1H0zM2 9h1v1H2zM9 9h1v1H9zM11 9h1v1H11zM0 10h2v1H0zM10 10h2v1H10zM0 11h12v1H0z'/%3E%3Cpath fill='%23fff' d='M2 1h8v1H2zM1 2h1v1H1zM3 2h6v1H3zM10 2h1v1H10zM1 3h2v1H1zM4 3h4v1H4zM9 3h2v1H9zM1 4h3v1H1zM5 4h2v1H5zM8 4h3v1H8zM1 5h4v1H1zM7 5h4v1H7zM1 6h4v1H1zM7 6h4v1H7zM1 7h3v1H1zM5 7h2v1H5zM8 7h3v1H8zM1 8h2v1H1zM4 8h4v1H4zM9 8h2v1H9zM1 9h1v1H1zM3 9h6v1H3zM10 9h1v1H10zM2 10h8v1H2z'/%3E%3C/svg%3E") 0 0 / 100% 100%;
+    }
+    .retro-checkbox-input:not(:disabled):active:where(:scope, *) {
+        box-shadow: inset 0 0 0 1px var(--retro-shadow);
+    }
+    .retro-checkbox-input:focus-visible:where(:scope, *) {
+        outline: var(--retro-line) dotted var(--retro-shadow);
+        outline-offset: 2px;
+    }
+.retro-checkbox:has(.retro-checkbox-input:disabled):where(:scope, *) {
+    color: var(--retro-disabled);
+    cursor: default;
+}
+.retro-checkbox-input:disabled:where(:scope, *) {
+    border-color: var(--retro-disabled);
+}
+    .retro-checkbox-input:disabled:checked:where(:scope, *) {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Cpath fill='%23888' d='M0 0h12v1H0zM0 1h2v1H0zM10 1h2v1H10zM0 2h1v1H0zM2 2h1v1H2zM9 2h1v1H9zM11 2h1v1H11zM0 3h1v1H0zM3 3h1v1H3zM8 3h1v1H8zM11 3h1v1H11zM0 4h1v1H0zM4 4h1v1H4zM7 4h1v1H7zM11 4h1v1H11zM0 5h1v1H0zM5 5h2v1H5zM11 5h1v1H11zM0 6h1v1H0zM5 6h2v1H5zM11 6h1v1H11zM0 7h1v1H0zM4 7h1v1H4zM7 7h1v1H7zM11 7h1v1H11zM0 8h1v1H0zM3 8h1v1H3zM8 8h1v1H8zM11 8h1v1H11zM0 9h1v1H0zM2 9h1v1H2zM9 9h1v1H9zM11 9h1v1H11zM0 10h2v1H0zM10 10h2v1H10zM0 11h12v1H0z'/%3E%3Cpath fill='%23fff' d='M2 1h8v1H2zM1 2h1v1H1zM3 2h6v1H3zM10 2h1v1H10zM1 3h2v1H1zM4 3h4v1H4zM9 3h2v1H9zM1 4h3v1H1zM5 4h2v1H5zM8 4h3v1H8zM1 5h4v1H1zM7 5h4v1H7zM1 6h4v1H1zM7 6h4v1H7zM1 7h3v1H1zM5 7h2v1H5zM8 7h3v1H8zM1 8h2v1H1zM4 8h4v1H4zM9 8h2v1H9zM1 9h1v1H1zM3 9h6v1H3zM10 9h1v1H10zM2 10h8v1H2z'/%3E%3C/svg%3E");
+    }
+.retro-label:where(:scope, *) {
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+.retro-field:where(:scope, *) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+    .retro-field:has(.retro-textbox:disabled):where(:scope, *) .retro-label {
+        color: var(--retro-disabled);
+    }
+.retro-textbox:where(:scope, *) {
+    min-width: 0;
+    height: 22px;
+    padding: 0 3px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    border-radius: 0;
+    outline: none;
+    caret-color: var(--retro-shadow);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+    .retro-textbox:disabled:where(:scope, *) {
+        color: var(--retro-disabled);
+        border-color: var(--retro-disabled);
+    }
+    .retro-textbox:where(:scope, *)::placeholder {
+        color: var(--retro-disabled);
+        opacity: 1;
+    }
+    .retro-textbox:where(:scope, *)::selection {
+        background: var(--retro-shadow);
+        color: var(--retro-background);
+    }
+.retro-progress:where(:scope, *) {
+    width: 100%;
+    height: 12px;
+    padding: 0;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-shadow);
+}
+.retro-progress-bar:where(:scope, *) {
+    height: 100%;
+    max-width: 100%;
+    background: var(--retro-shadow);
 }
 }

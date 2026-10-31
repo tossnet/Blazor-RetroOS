@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="_content/Brism/prism-vsc-dark-plus.css" />
     <link rel="stylesheet" href="Blazor.RetroOS.styles.css" />
     <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/loader.css" />
 </head>
 
 <!--
@@ -30,7 +31,13 @@
 -->
 <body class="no-keep-markup">
     <div id="app">
-        <div class="loading">Loading...</div>
+        <div class="loader">
+            <div class="loader-logo">
+                <span class="loader-blazor">Blazor</span>
+                <span class="loader-retro">RetroOS</span>
+            </div>
+            <div class="loader-text"></div>
+        </div>
     </div>
 
     <div id="blazor-error-ui">

@@ -22,7 +22,7 @@
         <RetroProgressBar Value="60" Style="margin-top: 8px;" />
     </RetroWindow>
 
-    <RetroWindow Title="Mixed" ShowCloseButton="false" Active="false">
+    <RetroWindow Title="Mixed" Active="false">
         <p>One component with its own appearance:</p>
         @foreach (var appearance in Enum.GetValues<Appearance>())
         {
@@ -30,7 +30,7 @@
         }
     </RetroWindow>
 
-    <RetroWindow Title="Stylesheets" ShowCloseButton="false" Active="false">
+    <RetroWindow Title="Stylesheets" Active="false">
         <table class="demo-table">
             <thead>
                 <tr><th>Appearance</th><th>Alone (static sites)</th><th>Class</th></tr>

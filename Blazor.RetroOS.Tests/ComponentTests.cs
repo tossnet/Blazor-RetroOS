@@ -232,6 +232,7 @@ public class ThemeStylesheetTests : TestContext
     [Theory]
     [InlineData(Appearance.Amiga13, "_content/BlazorRetroOS/css/retroos-amiga13.css")]
     [InlineData(Appearance.AtariST, "_content/BlazorRetroOS/css/retroos-atarist.css")]
+    [InlineData(Appearance.System7, "_content/BlazorRetroOS/css/retroos-system7.css")]
     public void Renders_LinkToTheTheme(Appearance theme, string href)
     {
         var cut = RenderComponent<RetroThemeStylesheet>(p => p.Add(x => x.Appearance, theme));

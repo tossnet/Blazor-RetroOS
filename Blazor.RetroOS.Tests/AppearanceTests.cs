@@ -76,6 +76,7 @@ public class AppearanceParameterTests : TestContext
     [Theory]
     [InlineData(Appearance.Amiga13, "amiga13")]
     [InlineData(Appearance.AtariST, "atarist")]
+    [InlineData(Appearance.System7, "system7")]
     public void Extensions_AreConsistent(Appearance appearance, string key)
     {
         Assert.Equal(key, appearance.ToKey());
