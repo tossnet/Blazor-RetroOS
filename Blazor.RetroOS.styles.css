@@ -1,0 +1,318 @@
+/* /Layout/MainLayout.razor.rz.scp.css */
+/* Below the white screen title bar: the Bootstrap side menu (as in the Blazor.WinOld demo) and the retro desktop. */
+.page[b-zomz3cual8] {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+/* Bootstrap content inside the retro screen: it takes back the Bootstrap font instead of the retro one. */
+.sidebar[b-zomz3cual8] {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    font-family: var(--bs-body-font-family);
+    line-height: var(--bs-body-line-height);
+    -webkit-font-smoothing: auto;
+}
+
+.demo-main[b-zomz3cual8] {
+    flex: 1;
+    min-width: 0;
+    padding: 8px;
+}
+
+@media (min-width: 641px) {
+    .page[b-zomz3cual8] {
+        flex-direction: row;
+        height: 100%;
+    }
+
+    .sidebar[b-zomz3cual8] {
+        width: 250px;
+        flex: none;
+    }
+
+    .demo-main[b-zomz3cual8] {
+        overflow: auto;
+    }
+}
+/* /Layout/NavMenu.razor.rz.scp.css */
+/* Side menu of the Blazor.WinOld demo (Bootstrap classes + this file). */
+.navbar-toggler[b-6bzr9x0cvd] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-6bzr9x0cvd] {
+    min-height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.navbar-brand[b-6bzr9x0cvd] {
+    font-size: 1.1rem;
+}
+
+.bi[b-6bzr9x0cvd] {
+    display: inline-block;
+    position: relative;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.75rem;
+    top: -1px;
+    background-size: cover;
+}
+
+.bi-house-door-fill-nav-menu[b-6bzr9x0cvd] {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' class='bi bi-house-door-fill' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z'/%3E%3C/svg%3E");
+}
+
+.bi-custom[b-6bzr9x0cvd] {
+    font-size: 1.3rem;
+    margin-top: -1.5rem;
+    margin-left: -0.2rem;
+}
+
+.nav-item[b-6bzr9x0cvd] {
+    font-size: 0.9rem;
+}
+
+    .nav-item:first-of-type[b-6bzr9x0cvd] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-6bzr9x0cvd] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-6bzr9x0cvd]  a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 2.1rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item[b-6bzr9x0cvd]  a.active {
+    background-color: rgba(255,255,255,0.37);
+    color: white;
+}
+
+.nav-item[b-6bzr9x0cvd]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-6bzr9x0cvd] {
+        display: none;
+    }
+
+    .collapse[b-6bzr9x0cvd] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+
+    .nav-scrollable[b-6bzr9x0cvd] {
+        /* Allow sidebar to scroll for tall menus (below the screen title bar: no 100vh) */
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+    }
+}
+/* /Pages/Home.razor.rz.scp.css */
+/* ── Hero Section ─────────────────────────────────────── */
+/* Colors come from the CSS variables of the previewed appearance (retro-appearance- class on .hero). */
+.hero[b-irbnv5pbnf] {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    padding: 2.5rem 1.5rem;
+    margin-bottom: 12px;
+    background-color: var(--retro-desktop);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    font-family: var(--retro-font);
+    font-synthesis: none;
+    transition: background-color 0.45s ease;
+    overflow: hidden;
+}
+
+/*  Hero – left text column */
+.hero-text[b-irbnv5pbnf] {
+    flex: 1 1 320px;
+    min-width: 260px;
+    max-width: 520px;
+}
+
+.hero-badge-row[b-irbnv5pbnf] {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.hero-title[b-irbnv5pbnf] {
+    font-size: 2.8rem;
+    font-weight: normal;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.1;
+}
+
+    .hero-title:focus[b-irbnv5pbnf] {
+        outline: none;
+    }
+
+    .hero-title[b-irbnv5pbnf]::after {
+        content: '_';
+        animation: cursor-blink-b-irbnv5pbnf 1.1s step-end infinite;
+        color: var(--retro-accent);
+    }
+
+@keyframes cursor-blink-b-irbnv5pbnf {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.hero-title-accent[b-irbnv5pbnf] {
+    color: var(--retro-accent);
+}
+
+.hero-subtitle[b-irbnv5pbnf] {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.65;
+}
+
+/* Install command: a string gadget, in the colors of the windows. */
+.hero-install[b-irbnv5pbnf] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    padding: 8px 12px;
+    margin-bottom: 1rem;
+    max-width: 390px;
+}
+
+.hero-install-code[b-irbnv5pbnf] {
+    font-family: var(--retro-font);
+    font-size: 0.9rem;
+    color: inherit;
+    flex: 1;
+    user-select: all;
+}
+
+.hero-copy-btn[b-irbnv5pbnf] {
+    background: transparent;
+    border: var(--retro-line) solid currentColor;
+    color: inherit;
+    padding: 0 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+}
+
+    .hero-copy-btn:active[b-irbnv5pbnf] {
+        background: var(--retro-text);
+        color: var(--retro-background);
+    }
+
+.hero-features[b-irbnv5pbnf] {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.hero-feature-pill[b-irbnv5pbnf] {
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    padding: 3px 10px;
+    font-size: 0.8rem;
+}
+
+.hero-news[b-irbnv5pbnf] {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1rem;
+    padding: 4px 12px 4px 4px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+    .hero-news:hover[b-irbnv5pbnf] {
+        text-decoration: underline;
+    }
+
+.hero-news-badge[b-irbnv5pbnf] {
+    background: var(--retro-accent);
+    color: var(--retro-background);
+    font-weight: normal;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+}
+
+/* Hero – right preview window */
+.hero[b-irbnv5pbnf]  .hero-preview {
+    flex: 0 0 auto;
+    width: 360px;
+    max-width: 100%;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.45);
+    animation: hero-preview-in-b-irbnv5pbnf 0.2s ease;
+}
+
+@keyframes hero-preview-in-b-irbnv5pbnf {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.hero-theme-selector[b-irbnv5pbnf] {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.hero-preview-buttons[b-irbnv5pbnf] {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+@media (max-width: 480px) {
+    .hero[b-irbnv5pbnf] {
+        padding: 1.5rem 1rem;
+    }
+
+    .hero-title[b-irbnv5pbnf] {
+        font-size: 2rem;
+    }
+}
+/* /Pages/StaticCssPage.razor.rz.scp.css */
+.static-demo[b-mtqzc82khr] {
+    display: block;
+    width: 100%;
+    height: 900px;
+    border: 1px solid #ccc;
+    background: #fff;
+}

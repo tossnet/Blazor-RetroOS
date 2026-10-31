@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetroOS static CSS</title>
+  <!--
+    This page uses ONLY dist/retroos-*.css: no Blazor, no framework.
+    dist/ is generated from the Blazor.RetroOS.Components sources on each build.
+    The HTML below is the markup rendered by the Blazor components.
+    Changing the theme only changes the href of the <link> below.
+  -->
+  <link id="retro-theme" rel="stylesheet" href="dist/retroos-amiga13.css" />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+
+  <meta property="og:title" content="RetroOS for static sites" />
+  <meta name="Description" content="Retro desktop UI for any website (HTML, PHP...), without Blazor: Workbench 1.3, GEM (Atari ST) and System 7 looks, one CSS file per OS with the same classes." />
+  <meta property="og:description" content="Retro desktop UI for any website (HTML, PHP...), without Blazor: one CSS file per OS with the same classes." />
+
+  <style>
+    body { margin: 0; padding: 16px; background: #fff; color: #111; font-family: "Segoe UI", sans-serif; }
+    .demo-header { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 16px; }
+    .demo-header h1 { font-size: 18px; margin: 0 12px 0 0; }
+    .demo-file { margin-left: auto; font-size: 12px; color: #555; font-family: Consolas, monospace; }
+    .demo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+    .demo-item { border: 1px solid #ddd; border-radius: 6px; padding: 12px; min-width: 0; }
+    .demo-item h3 { font-size: 13px; margin: 0 0 10px; color: #555; font-weight: 600; }
+    .demo-preview { background: var(--retro-desktop); padding: 12px; border-radius: 4px; overflow: auto; }
+    .demo-preview > * + * { margin-top: 8px; }
+    @media (min-width: 720px) { .demo-item-wide { grid-column: span 2; } }
+    details { margin-top: 8px; font-size: 12px; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 8px; border-radius: 4px; overflow: auto; font-size: 11px; margin: 6px 0 0; }
+  </style>
+</head>
+<body>
+  <header class="demo-header">
+    <h1>RetroOS: static CSS</h1>
+    <button type="button" class="retro-button" data-theme="retroos-amiga13.css">Workbench 1.3</button>
+    <button type="button" class="retro-button" data-theme="retroos-atarist.css">GEM (Atari ST)</button>
+    <button type="button" class="retro-button" data-theme="retroos-system7.css">System 7</button>
+    <span class="demo-file" id="demo-file">dist/retroos-amiga13.css</span>
+  </header>
+
+  <main class="demo-grid">
+    <section class="demo-item">
+      <h3>Button</h3>
+      <div class="demo-preview">
+<div>
+    <button type="button" class="retro-button retro-button-default">OK</button>
+    <button type="button" class="retro-button">Cancel</button>
+    <button type="button" class="retro-button" disabled>Disabled</button>
+</div>
+      </div>
+    </section>
+
+    <section class="demo-item">
+      <h3>CheckBox</h3>
+      <div class="demo-preview">
+<label class="retro-checkbox">
+    <input type="checkbox" class="retro-checkbox-input" checked />
+    <span>Show all files</span>
+</label>
+<br />
+<label class="retro-checkbox">
+    <input type="checkbox" class="retro-checkbox-input" checked disabled />
+    <span>Disabled</span>
+</label>
+      </div>
+    </section>
+
+    <section class="demo-item">
+      <h3>TextBox</h3>
+      <div class="demo-preview">
+<div class="retro-field">
+    <label class="retro-label" for="textbox-1">Name</label>
+    <input type="text" id="textbox-1" class="retro-textbox" placeholder="Your name" value="Bob" />
+</div>
+<div class="retro-field">
+    <label class="retro-label" for="textbox-2">Disk</label>
+    <input type="text" id="textbox-2" class="retro-textbox" value="DF0:" disabled />
+</div>
+      </div>
+    </section>
+
+    <section class="demo-item">
+      <h3>ProgressBar</h3>
+      <div class="demo-preview">
+<div class="retro-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40">
+    <div class="retro-progress-bar" style="width: 40%"></div>
+</div>
+      </div>
+    </section>
+
+    <section class="demo-item">
+      <h3>Window</h3>
+      <div class="demo-preview">
+<div class="retro-window retro-window-active" role="dialog" aria-label="Active window">
+    <div class="retro-titlebar">
+        <button type="button" class="retro-gadget retro-gadget-close" title="Close" aria-label="Close"></button>
+        <span class="retro-titlebar-text">Active window</span>
+        <button type="button" class="retro-gadget retro-gadget-back" title="Send to back" aria-label="Send to back"></button>
+        <button type="button" class="retro-gadget retro-gadget-front" title="Bring to front" aria-label="Bring to front"></button>
+    </div>
+    <div class="retro-window-body">
+        <p>Hello from a plain HTML page.</p>
+        <button type="button" class="retro-button retro-button-default">OK</button>
+    </div>
+</div>
+      </div>
+    </section>
+
+    <section class="demo-item">
+      <h3>Window (inactive)</h3>
+      <div class="demo-preview">
+<div class="retro-window" role="dialog" aria-label="Copying">
+    <div class="retro-titlebar">
+        <span class="retro-titlebar-text">Copying</span>
+    </div>
+    <div class="retro-window-body">
+        <p>Without retro-window-active, without gadgets.</p>
+        <div class="retro-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60">
+            <div class="retro-progress-bar" style="width: 60%"></div>
+        </div>
+    </div>
+</div>
+      </div>
+    </section>
+
+    <section class="demo-item demo-item-wide">
+      <h3>Screen</h3>
+      <div class="demo-preview">
+<div class="retro-screen" style="height: 260px;">
+    <div class="retro-screen-titlebar">
+        <span class="retro-screen-title">My site</span>
+    </div>
+    <div class="retro-screen-body">
+        <div class="retro-window retro-window-active" role="dialog" aria-label="Login" style="max-width: 320px;">
+            <div class="retro-titlebar">
+                <button type="button" class="retro-gadget retro-gadget-close" title="Close" aria-label="Close"></button>
+                <span class="retro-titlebar-text">Login</span>
+                <button type="button" class="retro-gadget retro-gadget-back" title="Send to back" aria-label="Send to back"></button>
+                <button type="button" class="retro-gadget retro-gadget-front" title="Bring to front" aria-label="Bring to front"></button>
+            </div>
+            <div class="retro-window-body">
+                <div class="retro-field">
+                    <label class="retro-label" for="screen-user">Username</label>
+                    <input type="text" id="screen-user" class="retro-textbox" value="Christophe" />
+                </div>
+                <label class="retro-checkbox">
+                    <input type="checkbox" class="retro-checkbox-input" />
+                    <span>Remember me</span>
+                </label>
+                <br />
+                <button type="button" class="retro-button retro-button-default">OK</button>
+                <button type="button" class="retro-button">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Theme: only the href of the <link id="retro-theme"> changes. Kept in the URL hash (#retroos-atarist.css).
+    var link = document.getElementById('retro-theme');
+    var file = document.getElementById('demo-file');
+    var buttons = document.querySelectorAll('[data-theme]');
+
+    function setTheme(name) {
+      link.href = 'dist/' + name;
+      file.textContent = 'dist/' + name;
+      buttons.forEach(function (b) { b.classList.toggle('retro-button-default', b.dataset.theme === name); });
+      history.replaceState(null, '', '#' + name);
+    }
+
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () { setTheme(b.dataset.theme); });
+    });
+    var initial = location.hash.slice(1);
+    setTheme(document.querySelector('[data-theme="' + initial + '"]') ? initial : buttons[0].dataset.theme);
+
+    // "HTML" under each component: its markup, read from the preview (so it is always the code displayed).
+    document.querySelectorAll('.demo-preview').forEach(function (preview) {
+      var details = document.createElement('details');
+      var summary = document.createElement('summary');
+      var pre = document.createElement('pre');
+      var code = document.createElement('code');
+      summary.textContent = 'HTML';
+      code.textContent = preview.innerHTML.replace(/^\s*\n|\s+$/g, '');
+      pre.appendChild(code);
+      details.append(summary, pre);
+      preview.after(details);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blazor.RetroOS</title>
+    <base href="/Blazor-RetroOS/" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <meta property="og:title" content="Blazor RetroOS" />
+    <meta name="Description" content="Blazor components in the style of retro desktop operating systems: Workbench 1.3, GEM (Atari ST)... One stylesheet per OS, same class names." />
+    <meta property="og:description" content="Blazor components in the style of retro desktop operating systems. One stylesheet per OS, same class names." />
+
+    <!-- Another UI framework in the same app (side menu): RetroOS must look the same with or without it. -->
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <!-- All the appearances: the Appearance parameter of the components chooses one. -->
+    <link rel="stylesheet" href="_content/BlazorRetroOS/css/retroos.css" />
+    <!-- Syntax highlighting of the code samples (Brism, PrismJS) -->
+    <link rel="stylesheet" href="_content/Brism/prism.css" />
+    <link rel="stylesheet" href="_content/Brism/prism-vsc-dark-plus.css" />
+    <link rel="stylesheet" href="Blazor.RetroOS.styles.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/loader.css" />
+</head>
+
+<!--
+    no-keep-markup: each CodeBlock calls Prism.highlightAll(), which re-highlights every block of the page.
+    The keep-markup plugin would keep the previous tokens each time, nesting them deeper and deeper (5 s on /static-css).
+-->
+<body class="no-keep-markup">
+    <div id="app">
+        <div class="loader">
+            <div class="loader-logo">
+                <span class="loader-blazor">Blazor</span>
+                <span class="loader-retro">RetroOS</span>
+            </div>
+            <div class="loader-text"></div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="." class="reload">Reload</a>
+        <span class="dismiss">X</span>
+    </div>
+
+    <script src="_content/Brism/prism.js"></script>
+    <script type="module" src="_content/Brism/prismInterop.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+/* Loading screen of the demo, shown until the WebAssembly runtime is started.
+   Blazor updates --blazor-load-percentage on :root while it downloads the resources.
+   The "RetroOS ST System" font comes from retroos.css. */
+
+.loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    background: #0d3b7d;
+}
+
+.loader-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35em;
+    font-size: 48px;
+    line-height: 1;
+}
+
+.loader-blazor {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 2px 2px 0 #06204a;
+}
+
+/* RetroOS: dark green, then a light green copy above it, revealed column by column */
+.loader-retro {
+    position: relative;
+    display: inline-block;
+    font-family: "RetroOS ST System", "Courier New", monospace;
+    color: #1d4a12;
+    text-shadow: 3px 3px 0 #06204a;
+    white-space: nowrap;
+}
+
+    .loader-retro::after {
+        content: "RetroOS";
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        color: #7cff2e;
+        text-shadow: 0 0 6px rgba(124, 255, 46, 0.6), 3px 3px 0 #06204a;
+        width: var(--blazor-load-percentage, 0%);
+        /* 7 letters of 8 font pixels: one step per pixel column, like segments lighting up */
+        width: round(down, var(--blazor-load-percentage, 0%), 100% / 56);
+    }
+
+.loader-text {
+    min-height: 16px;
+    font-family: "RetroOS ST System", "Courier New", monospace;
+    font-size: 16px;
+    color: #7cff2e;
+}
+
+    .loader-text::after {
+        content: var(--blazor-load-percentage-text, "");
+    }
