@@ -12,6 +12,8 @@ A Blazor UI component library in the style of retro desktop operating systems.
 
 More to come (Workbench 3.0, Classic Mac / System 7 style...).
 
+<img width="1280" height="640" alt="Blazor RetroOS component library" src="https://github.com/tossnet/Blazor-RetroOS/blob/f6a5618cf3e1e9acc357d430dbccca8c08df1544/Assets/repository-open-graph.jpg" />
+
 **Compatible with Blazor Server and Blazor WebAssembly**
 
 > 💡 **Already using a UI framework?** No problem! RetroOS works alongside Bootstrap, Tailwind, MudBlazor, Radzen, Fluent UI... Its classes are all prefixed with `retro-`, and its components inherit nothing from the page (line height, fonts, box sizing, look of the form controls): they look the same with or without another framework. The demo itself uses the Bootstrap side menu of a standard Blazor template.
