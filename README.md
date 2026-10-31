@@ -11,7 +11,9 @@ A Blazor UI component library in the style of retro desktop operating systems.
 | `Appearance.AtariST` | GEM desktop style (Atari ST) | `retroos-atarist.css` |
 | `Appearance.System7` | System 7 style (classic Mac) | `retroos-system7.css` |
 
-More to come (Workbench 3.0, Classic Mac / System 7 style...).
+More to come (Workbench 3.0, Classic Mac style...).
+
+<img width="1280" height="640" alt="Blazor RetroOS component library" src="https://github.com/tossnet/Blazor-RetroOS/blob/64e2b2f32b83417f97710a61d13604b9108bbb0a/Assets/repository-open-graph.jpg" />
 
 **Compatible with Blazor Server and Blazor WebAssembly**
 
