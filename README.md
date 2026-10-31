@@ -11,7 +11,7 @@ A Blazor UI component library in the style of retro desktop operating systems.
 | `Appearance.AtariST` | GEM desktop style (Atari ST) | `retroos-atarist.css` |
 | `Appearance.System7` | System 7 style (classic Mac) | `retroos-system7.css` |
 
-More to come (Workbench 3.0...).
+More to come (Workbench 3.0, Classic Mac / System 7 style...).
 
 **Compatible with Blazor Server and Blazor WebAssembly**
 
@@ -124,5 +124,3 @@ To use another font, override the variable after the RetroOS stylesheet:
 - [TAWS, The Amiga Workbench Simulation](https://taws.ch/WB.html) by Michael Rupp: a very faithful reproduction of every Workbench version, used as a visual reference for the Workbench appearances (nothing is copied from it: © Michael Rupp, all rights reserved).
 - [amigavision/TopazDouble](https://github.com/amigavision/TopazDouble) by Alex Limi (MIT License): the Topaz Double Serif font, converted to `RetroOS Double Serif` for the Workbench 1.3 appearance (see Fonts).
 - [ntwk/atarist-font](https://github.com/ntwk/atarist-font) by ntwk (BSD 3-Clause License): the Atarist font, converted to `RetroOS ST System` for the GEM (Atari ST) appearance (see Fonts).
-- [ChiKareGo2](http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=3780) by Giles Booth (Creative Commons Attribution license, CC BY), Copyright © Giles Booth: the ChiKareGo2 font, converted to `RetroOS ChiKareGo2` for the System 7 appearance (see Fonts).
-- [https://infinitemac.org/](https://infinitemac.org/) emulators 
