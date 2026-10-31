@@ -258,6 +258,58 @@ public class ThemeContractTests
         Assert.All(gadgets, g => Assert.DoesNotMatch(@"(^|\s)border(-[a-z]+)*\s*:\s*(?!0\s*;)[^\s;]", g));
     }
 
+    // GEM close and full boxes: 8x7 pixel glyphs drawn at 2px per pixel.
+    [Theory]
+    [InlineData("close")]
+    [InlineData("front")]
+    public void AtariST_Gadget_IsThePixelGlyph(string gadget)
+    {
+        var css = ReadTheme(Appearance.AtariST);
+        var rule = Regex.Match(css, @"(?<![\w-])\.retro-gadget-" + gadget + @"::before \{([^}]*)\}").Groups[1].Value;
+
+        Assert.Contains("width: 16px;", rule);
+        Assert.Contains("height: 14px;", rule);
+        Assert.Contains("viewBox='0 0 8 7'", rule);
+        Assert.Contains("mask: url(", rule);
+        Assert.DoesNotContain("rotate", rule);
+        Assert.DoesNotContain(".retro-gadget-" + gadget + "::after", css);
+
+        // 24x22 box with a 2px black frame.
+        var box = Regex.Match(css, @"\.retro-gadget-close,\s*\.retro-gadget-front \{([^}]*)\}").Groups[1].Value;
+        Assert.Contains("width: 24px;", box);
+        Assert.Contains("height: 22px;", box);
+        Assert.Contains("box-shadow: inset 0 0 0 2px var(--retro-shadow);", box);
+    }
+
+    // GEM move bar of the active window: 2x2 dots every 4px, not horizontal lines.
+    [Fact]
+    public void AtariST_ActiveTitlebar_IsDotted()
+    {
+        var css = ReadTheme(Appearance.AtariST);
+        var rule = Regex.Match(css, @"\.retro-window-active > \.retro-titlebar \{([^}]*)\}").Groups[1].Value;
+
+        Assert.Contains("conic-gradient(from 270deg at 2px 2px, var(--retro-shadow) 25%, var(--retro-background) 0)", rule);
+        Assert.Contains("/ 4px 4px", rule);
+        Assert.DoesNotContain("var(--retro-pattern)", rule);
+
+        // 2px lines above (with the window border) and below.
+        var bar = Regex.Match(css, @"(?<![\w-])\.retro-titlebar \{([^}]*)\}").Groups[1].Value;
+        Assert.Contains("border-top: var(--retro-line) solid var(--retro-shadow);", bar);
+        Assert.Contains("border-bottom: 2px solid var(--retro-shadow);", bar);
+        // The 18px are between the lines even under Bootstrap's global border-box.
+        Assert.Contains("box-sizing: content-box;", bar);
+    }
+
+    // GEM draws no box on an inactive window.
+    [Fact]
+    public void AtariST_InactiveWindow_HidesTheGadgets()
+    {
+        var css = ReadTheme(Appearance.AtariST);
+        var rule = Regex.Match(css, @"\.retro-window:not\(\.retro-window-active\) > \.retro-titlebar > \.retro-gadget \{([^}]*)\}").Groups[1].Value;
+
+        Assert.Contains("display: none;", rule);
+    }
+
     [Fact]
     public void Themes_HaveDistinctFiles()
     {

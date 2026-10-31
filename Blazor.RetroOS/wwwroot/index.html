@@ -24,7 +24,11 @@
     <link rel="stylesheet" href="css/app.css" />
 </head>
 
-<body>
+<!--
+    no-keep-markup: each CodeBlock calls Prism.highlightAll(), which re-highlights every block of the page.
+    The keep-markup plugin would keep the previous tokens each time, nesting them deeper and deeper (5 s on /static-css).
+-->
+<body class="no-keep-markup">
     <div id="app">
         <div class="loading">Loading...</div>
     </div>

@@ -486,24 +486,26 @@
     --retro-titlebar-bg: var(--retro-background);
     display: flex;
     align-items: stretch;
-    height: var(--retro-bar-height);
+    box-sizing: content-box;
+    height: calc(var(--retro-bar-height) - 2px);
     background: var(--retro-background);
     color: var(--retro-text);
-    border-bottom: var(--retro-line) solid var(--retro-shadow);
+    border-top: var(--retro-line) solid var(--retro-shadow);
+    border-bottom: 2px solid var(--retro-shadow);
     -webkit-user-select: none;
     user-select: none;
     flex: none;
 }
 .retro-window-active:where(:scope, *) > .retro-titlebar {
-    background: var(--retro-pattern);
+    background: conic-gradient(from 270deg at 2px 2px, var(--retro-shadow) 25%, var(--retro-background) 0) 1px 0 / 4px 4px;
 }
 .retro-titlebar-text:where(:scope, *) {
     flex: 0 1 auto;
     min-width: 0;
-    margin: 0 auto;
+    margin: 2px auto 0;
     padding: 0 8px;
     background: var(--retro-background);
-    line-height: calc(var(--retro-bar-height) - var(--retro-line));
+    line-height: calc(var(--retro-bar-height) - 4px);
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -539,40 +541,45 @@
     .retro-gadget:active:where(:scope, *) {
         filter: invert(1);
     }
-.retro-gadget-close:where(:scope, *) {
-    border-right: var(--retro-line) solid var(--retro-shadow);
+.retro-gadget-close:where(:scope, *),
+.retro-gadget-front:where(:scope, *) {
+    box-sizing: content-box;
+    width: 24px;
+    height: 22px;
+    margin: -2px 0;
+    box-shadow: inset 0 0 0 2px var(--retro-shadow);
 }
-    .retro-gadget-close:where(:scope, *)::before,
-.retro-gadget-close:where(:scope, *)::after {
-        left: 4px;
-        top: 9px;
-        width: 11px;
-        height: 2px;
+.retro-gadget-close:where(:scope, *) {
+    margin-left: -1px;
+    border-right: 2px solid var(--retro-shadow);
+}
+    .retro-gadget-close:where(:scope, *)::before {
+        inset: 0;
+        margin: auto;
+        width: 16px;
+        height: 14px;
         background: currentColor;
-        transform: rotate(45deg);
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M2 0h4v1H2zM0 1h1v1H0zM3 1h2v1H3zM7 1h1v1H7zM0 2h2v1H0zM6 2h2v1H6zM0 3h3v1H0zM5 3h3v1H5zM0 4h2v1H0zM6 4h2v1H6zM0 5h1v1H0zM3 5h2v1H3zM7 5h1v1H7zM2 6h4v1H2z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M2 0h4v1H2zM0 1h1v1H0zM3 1h2v1H3zM7 1h1v1H7zM0 2h2v1H0zM6 2h2v1H6zM0 3h3v1H0zM5 3h3v1H5zM0 4h2v1H0zM6 4h2v1H6zM0 5h1v1H0zM3 5h2v1H3zM7 5h1v1H7zM2 6h4v1H2z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
     }
-    .retro-gadget-close:where(:scope, *)::after {
-        transform: rotate(-45deg);
-    }
+.retro-window:not(.retro-window-active):where(:scope, *) > .retro-titlebar > .retro-gadget {
+    display: none;
+}
 .retro-gadget-back:where(:scope, *) {
     display: none;
 }
 .retro-gadget-front:where(:scope, *) {
-    border-left: var(--retro-line) solid var(--retro-shadow);
+    margin-right: -1px;
+    border-left: 2px solid var(--retro-shadow);
 }
     .retro-gadget-front:where(:scope, *)::before {
-        left: 4px;
-        top: 4px;
-        width: 11px;
-        height: 11px;
-        border: var(--retro-line) solid currentColor;
-    }
-    .retro-gadget-front:where(:scope, *)::after {
-        left: 7px;
-        top: 7px;
-        width: 5px;
-        height: 5px;
+        inset: 0;
+        margin: auto;
+        width: 16px;
+        height: 14px;
         background: currentColor;
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h3v1H0zM5 0h3v1H5zM0 1h2v1H0zM6 1h2v1H6zM0 2h1v1H0zM3 2h2v1H3zM7 2h1v1H7zM2 3h4v1H2zM0 4h1v1H0zM3 4h2v1H3zM7 4h1v1H7zM0 5h2v1H0zM6 5h2v1H6zM0 6h3v1H0zM5 6h3v1H5z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h3v1H0zM5 0h3v1H5zM0 1h2v1H0zM6 1h2v1H6zM0 2h1v1H0zM3 2h2v1H3zM7 2h1v1H7zM2 3h4v1H2zM0 4h1v1H0zM3 4h2v1H3zM7 4h1v1H7zM0 5h2v1H0zM6 5h2v1H6zM0 6h3v1H0zM5 6h3v1H5z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
     }
 .retro-button:where(:scope, *) {
     position: relative;
