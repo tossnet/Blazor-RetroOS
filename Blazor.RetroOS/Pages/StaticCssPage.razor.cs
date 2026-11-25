@@ -14,6 +14,7 @@ public partial class StaticCssPage
             └── retroos/
                 ├── retroos-amiga13.css
                 ├── retroos-atarist.css
+                ├── retroos-system7.css
                 ├── retroos.css
                 └── fonts/
         """;
