@@ -1,0 +1,16 @@
+retroos-chikarego2.woff2 ("RetroOS ChiKareGo2") is converted from the font "ChiKareGo2" created by
+Giles Booth.
+
+ChiKareGo2 is licensed under the Creative Commons Attribution license (CC BY).
+The source page names no version: https://creativecommons.org/licenses/by/4.0/
+
+Source:
+http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=3780
+
+Copyright (c) Giles Booth
+
+Changes made by Blazor.RetroOS: converted from TrueType to WOFF2, renamed "RetroOS ChiKareGo2",
+em set to 12 pixels and vertical metrics set to the bounds of the glyphs. The glyphs are unchanged.
+Conversion: tools/fonts/ttf_font_to_woff2.py of Blazor.RetroOS.
+
+This license applies to the font only. The rest of Blazor.RetroOS is under the MIT License.

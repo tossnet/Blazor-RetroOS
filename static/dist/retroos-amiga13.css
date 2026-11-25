@@ -1,0 +1,468 @@
+/*!
+ * Blazor.RetroOS - Workbench 1.3 style theme
+ * https://github.com/tossnet/Blazor-RetroOS - MIT License
+ * Every theme defines the same retro- classes: swap this file for another retroos-*.css to change the look.
+ */
+
+/* 8x16 pixel font, converted from Topaz Double Serif by Alex Limi (MIT License, see fonts/retroos-double-serif.LICENSE.txt).
+   One font pixel is one CSS pixel at 16px. */
+@font-face {
+    font-family: "RetroOS Double Serif";
+    src: url("fonts/retroos-double-serif.woff2") format("woff2");
+    font-display: block;
+}
+
+/* Four color palette: blue background, white, black, orange. */
+:root {
+    --retro-font: "RetroOS Double Serif", "Courier New", monospace;
+    --retro-font-size: 16px;
+    --retro-desktop: #0055aa;
+    --retro-background: #0055aa;
+    --retro-text: #ffffff;
+    --retro-highlight: #ffffff;
+    --retro-shadow: #000022;
+    --retro-accent: #ff8800;
+    --retro-line: 2px;
+    --retro-bar-height: 22px;
+    /* Title bar of the windows (bottom line included) and the two lines of its drag bar. */
+    --retro-titlebar-height: 17px;
+    --retro-dragbar-line: 3px;
+    /* One Amiga pixel of the title bar: the bar is 10 of them high (+ the bottom line), the gadgets are drawn with them. */
+    --retro-u: 1.5px;
+    /* Disabled controls are covered with a checkerboard of the background color ("ghosting"). */
+    --retro-ghost: repeating-conic-gradient(var(--retro-background) 0 25%, transparent 0 50%) 0 0 / 4px 4px;
+    /* The same checkerboard as a mask: ghosts an element over whatever is behind it (inactive title bars). */
+    --retro-ghost-mask: repeating-conic-gradient(#000 0 25%, transparent 0 50%) 0 0 / 4px 4px;
+}
+
+/*---------*\
+    Reset
+\*---------*/
+/* RetroOS must look the same whatever the application loads besides it (Bootstrap, Tailwind, MudBlazor...):
+   these elements inherit nothing from the page. First in the file: the rules below can still override it. */
+.retro-screen,
+.retro-window,
+.retro-gadget,
+.retro-button,
+.retro-checkbox,
+.retro-checkbox-input,
+.retro-label,
+.retro-field,
+.retro-textbox,
+.retro-progress {
+    box-sizing: border-box;
+    line-height: normal;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+    font-style: normal;
+    font-weight: normal;
+    /* The pixel font has a single weight: no faux bold or italic (blurred pixels) on <strong>, <h1>... (inherited by the content). */
+    font-synthesis: none;
+}
+
+/* Form controls: the browser and the frameworks give them their own font and look. */
+.retro-gadget,
+.retro-button,
+.retro-checkbox-input,
+.retro-textbox {
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/*----------*\
+    Screen
+\*----------*/
+.retro-screen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    box-sizing: border-box;
+    background: var(--retro-desktop);
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+.retro-screen *,
+.retro-screen *::before,
+.retro-screen *::after {
+    box-sizing: border-box;
+}
+
+.retro-screen-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: var(--retro-bar-height);
+    padding: 0 6px;
+    background: var(--retro-highlight);
+    color: var(--retro-background);
+    border-bottom: var(--retro-line) solid var(--retro-shadow);
+    white-space: nowrap;
+    flex: none;
+}
+
+.retro-screen-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.retro-screen-body {
+    position: relative;
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+
+/*----------*\
+    Window
+\*----------*/
+.retro-window {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-highlight);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+/* White drag bar, blue title and gadgets, active or not. */
+.retro-titlebar {
+    --retro-titlebar-bg: var(--retro-highlight);
+    display: flex;
+    align-items: stretch;
+    box-sizing: border-box;
+    height: var(--retro-titlebar-height);
+    background: var(--retro-titlebar-bg);
+    color: var(--retro-background);
+    border-bottom: var(--retro-line) solid var(--retro-highlight);
+    -webkit-user-select: none;
+    user-select: none;
+    flex: none;
+}
+
+/* Title, then the two lines of the drag bar up to the depth gadgets. */
+.retro-titlebar-text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--retro-u) * 2);
+    min-width: 0;
+    padding: 0 calc(var(--retro-u) * 1.5) 0 calc(var(--retro-u) * 2);
+    line-height: calc(var(--retro-titlebar-height) - var(--retro-line));
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+    .retro-titlebar-text::after {
+        content: "";
+        flex: 1;
+        height: calc(var(--retro-dragbar-line) * 3);
+        background:
+            linear-gradient(currentColor, currentColor) top / 100% var(--retro-dragbar-line) no-repeat,
+            linear-gradient(currentColor, currentColor) bottom / 100% var(--retro-dragbar-line) no-repeat;
+    }
+
+/* Inactive window: the title and the lines are ghosted (checkerboard with the white of the bar). */
+.retro-window:not(.retro-window-active) > .retro-titlebar > .retro-titlebar-text {
+    -webkit-mask: var(--retro-ghost-mask);
+    mask: var(--retro-ghost-mask);
+}
+
+.retro-window-body {
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+
+/* Gadgets: drawn on the grid of the real ones, in Amiga pixels (--retro-u), with currentColor (the blue of
+   the title bar) and black. No borders: browsers round border widths to whole pixels (1.5px would become
+   1px), so the lines are inset shadows and the separators are backgrounds. */
+.retro-gadget {
+    --retro-separator: linear-gradient(currentColor, currentColor);
+    position: relative;
+    box-sizing: border-box;
+    width: calc(var(--retro-u) * 12);
+    flex: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+    .retro-gadget::before,
+    .retro-gadget::after {
+        content: "";
+        position: absolute;
+        box-sizing: border-box;
+    }
+
+    .retro-gadget:focus-visible {
+        outline: var(--retro-line) dashed var(--retro-accent);
+        outline-offset: -4px;
+    }
+
+    /* Pressed gadget: complementary colors (blue <-> orange, white <-> black). */
+    .retro-gadget:active {
+        filter: invert(1);
+    }
+
+/* Close, at the left: a full-height separator on each side, a box with a black dot. */
+.retro-gadget-close {
+    background:
+        var(--retro-separator) left / var(--retro-u) 100% no-repeat,
+        var(--retro-separator) right / var(--retro-u) 100% no-repeat;
+}
+
+    .retro-gadget-close::before {
+        left: calc(var(--retro-u) * 2);
+        top: var(--retro-u);
+        width: calc(var(--retro-u) * 8);
+        height: calc(var(--retro-u) * 8);
+        box-shadow: inset 0 0 0 var(--retro-u) currentColor;
+    }
+
+    .retro-gadget-close::after {
+        left: calc(var(--retro-u) * 5);
+        top: calc(var(--retro-u) * 4);
+        width: calc(var(--retro-u) * 2);
+        height: calc(var(--retro-u) * 2);
+        background: var(--retro-shadow);
+    }
+
+/* Depth, at the right: a full-height separator before each gadget and after the last one.
+   The black box has no border: it is the box that moves. */
+.retro-gadget-front {
+    background: var(--retro-separator) left / var(--retro-u) 100% no-repeat;
+}
+
+/* Workbench order: "to front" first, "to back" at the far right. */
+.retro-gadget-back {
+    order: 1;
+    width: calc(var(--retro-u) * 13);
+    background:
+        var(--retro-separator) left / var(--retro-u) 100% no-repeat,
+        var(--retro-separator) right / var(--retro-u) 100% no-repeat;
+}
+
+    /* To front: an empty box behind, the black box in front. */
+    .retro-gadget-front::before {
+        left: calc(var(--retro-u) * 2);
+        top: var(--retro-u);
+        width: calc(var(--retro-u) * 7);
+        height: calc(var(--retro-u) * 6);
+        box-shadow: inset 0 0 0 var(--retro-u) currentColor;
+    }
+
+    .retro-gadget-front::after {
+        left: calc(var(--retro-u) * 4);
+        top: calc(var(--retro-u) * 3);
+        width: calc(var(--retro-u) * 7);
+        height: calc(var(--retro-u) * 6);
+        background: var(--retro-shadow);
+    }
+
+    /* To back: the black box behind, a white box in front. */
+    .retro-gadget-back::before {
+        left: calc(var(--retro-u) * 2);
+        top: var(--retro-u);
+        width: calc(var(--retro-u) * 7);
+        height: calc(var(--retro-u) * 6);
+        background: var(--retro-shadow);
+    }
+
+    .retro-gadget-back::after {
+        left: calc(var(--retro-u) * 4);
+        top: calc(var(--retro-u) * 2);
+        width: calc(var(--retro-u) * 7);
+        height: calc(var(--retro-u) * 7);
+        box-shadow: inset 0 0 0 var(--retro-u) currentColor;
+        background: var(--retro-titlebar-bg);
+    }
+
+/*----------*\
+    Button
+\*----------*/
+.retro-button {
+    position: relative;
+    min-width: 72px;
+    min-height: 26px;
+    margin: 4px;
+    padding: 2px 12px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-highlight);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* Default button of a requester: double border. */
+.retro-button-default {
+    box-shadow: 0 0 0 var(--retro-line) var(--retro-background), 0 0 0 calc(var(--retro-line) * 2) var(--retro-highlight);
+}
+
+.retro-button:focus-visible {
+    outline: var(--retro-line) dashed var(--retro-accent);
+    outline-offset: -6px;
+}
+
+.retro-button:not(:disabled):active {
+    background: var(--retro-accent);
+    color: var(--retro-shadow);
+}
+
+.retro-button:disabled {
+    cursor: default;
+}
+
+    .retro-button:disabled::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+
+/*------------*\
+    CheckBox
+\*------------*/
+.retro-checkbox {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+}
+
+.retro-checkbox-input {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 26px;
+    height: 20px;
+    margin: 0;
+    flex: none;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-highlight);
+    cursor: inherit;
+}
+
+    .retro-checkbox-input:checked::after {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 0;
+        width: 6px;
+        height: 11px;
+        border: solid var(--retro-accent);
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+    }
+
+    .retro-checkbox-input:focus-visible {
+        outline: var(--retro-line) dashed var(--retro-accent);
+        outline-offset: 2px;
+    }
+
+.retro-checkbox:has(.retro-checkbox-input:disabled) {
+    cursor: default;
+}
+
+    .retro-checkbox:has(.retro-checkbox-input:disabled)::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+
+/*----------------*\
+    Label, TextBox
+\*----------------*/
+.retro-label {
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+.retro-field {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .retro-field:has(.retro-textbox:disabled)::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+
+/* String gadget: white frame, orange frame and cursor when editing. */
+.retro-textbox {
+    min-width: 0;
+    height: 26px;
+    padding: 2px 6px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-highlight);
+    border-radius: 0;
+    outline: none;
+    caret-color: var(--retro-accent);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+    .retro-textbox:focus {
+        border-color: var(--retro-accent);
+    }
+
+    .retro-textbox::placeholder {
+        color: var(--retro-text);
+        opacity: 0.6;
+    }
+
+    .retro-textbox::selection {
+        background: var(--retro-accent);
+        color: var(--retro-shadow);
+    }
+
+/*---------------*\
+    ProgressBar
+\*---------------*/
+.retro-progress {
+    width: 100%;
+    height: 22px;
+    padding: 2px;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-highlight);
+}
+
+.retro-progress-bar {
+    height: 100%;
+    max-width: 100%;
+    background: var(--retro-accent);
+}

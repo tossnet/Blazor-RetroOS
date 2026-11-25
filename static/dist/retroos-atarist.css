@@ -1,0 +1,435 @@
+/*!
+ * Blazor.RetroOS - GEM desktop style theme (Atari ST)
+ * https://github.com/tossnet/Blazor-RetroOS - MIT License
+ * Every theme defines the same retro- classes: swap this file for another retroos-*.css to change the look.
+ */
+
+/* 8x16 pixel system font, converted from Atarist by ntwk (BSD 3-Clause License, see fonts/retroos-st-system.LICENSE.txt).
+   One font pixel is one CSS pixel at 16px. */
+@font-face {
+    font-family: "RetroOS ST System";
+    src: url("fonts/retroos-st-system.woff2") format("woff2");
+    font-display: block;
+}
+
+/* Green desktop, white windows drawn with thin black lines, selection by inversion. */
+:root {
+    --retro-font: "RetroOS ST System", "Courier New", monospace;
+    --retro-font-size: 16px;
+    --retro-desktop: #00ee00;
+    --retro-background: #ffffff;
+    --retro-text: #000000;
+    --retro-highlight: #ffffff;
+    --retro-shadow: #000000;
+    --retro-accent: #000000;
+    --retro-line: 1px;
+    --retro-bar-height: 20px;
+    /* Disabled controls: text and frames dimmed by a checkerboard of the background color. */
+    --retro-ghost: repeating-conic-gradient(var(--retro-background) 0 25%, transparent 0 50%) 0 0 / 2px 2px;
+    /* Fill pattern of the progress bar. */
+    --retro-pattern: repeating-linear-gradient(to bottom, var(--retro-shadow) 0 1px, var(--retro-background) 1px 2px);
+}
+
+/*---------*\
+    Reset
+\*---------*/
+/* RetroOS must look the same whatever the application loads besides it (Bootstrap, Tailwind, MudBlazor...):
+   these elements inherit nothing from the page. First in the file: the rules below can still override it. */
+.retro-screen,
+.retro-window,
+.retro-gadget,
+.retro-button,
+.retro-checkbox,
+.retro-checkbox-input,
+.retro-label,
+.retro-field,
+.retro-textbox,
+.retro-progress {
+    box-sizing: border-box;
+    line-height: normal;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+    font-style: normal;
+    font-weight: normal;
+    /* The pixel font has a single weight: no faux bold or italic (blurred pixels) on <strong>, <h1>... (inherited by the content). */
+    font-synthesis: none;
+}
+
+/* Form controls: the browser and the frameworks give them their own font and look. */
+.retro-gadget,
+.retro-button,
+.retro-checkbox-input,
+.retro-textbox {
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/*----------*\
+    Screen
+\*----------*/
+.retro-screen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    box-sizing: border-box;
+    background: var(--retro-desktop);
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+.retro-screen *,
+.retro-screen *::before,
+.retro-screen *::after {
+    box-sizing: border-box;
+}
+
+/* Menu bar: white, black text, black line below. */
+.retro-screen-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: var(--retro-bar-height);
+    padding: 0 8px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border-bottom: var(--retro-line) solid var(--retro-shadow);
+    white-space: nowrap;
+    flex: none;
+}
+
+.retro-screen-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.retro-screen-body {
+    position: relative;
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+
+/*----------*\
+    Window
+\*----------*/
+.retro-window {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+/* Move bar: plain when inactive, patterned with the title in a white box when active.
+   2px lines above (with the window border) and below, 18px between them, as on the real one.
+   Box sizing is explicit: frameworks such as Bootstrap set border-box on everything. */
+.retro-titlebar {
+    --retro-titlebar-bg: var(--retro-background);
+    display: flex;
+    align-items: stretch;
+    box-sizing: content-box;
+    height: calc(var(--retro-bar-height) - 2px);
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border-top: var(--retro-line) solid var(--retro-shadow);
+    border-bottom: 2px solid var(--retro-shadow);
+    -webkit-user-select: none;
+    user-select: none;
+    flex: none;
+}
+
+/* 2x2 dots every 4px, the first column right after the close box. */
+.retro-window-active > .retro-titlebar {
+    background: conic-gradient(from 270deg at 2px 2px, var(--retro-shadow) 25%, var(--retro-background) 0) 1px 0 / 4px 4px;
+}
+
+/* Centered title, only as wide as its text: on the active window it cuts a white box in the pattern,
+   below the first row of dots. */
+.retro-titlebar-text {
+    flex: 0 1 auto;
+    min-width: 0;
+    margin: 2px auto 0;
+    padding: 0 8px;
+    background: var(--retro-background);
+    line-height: calc(var(--retro-bar-height) - 4px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+    .retro-titlebar-text:empty {
+        visibility: hidden;
+    }
+
+.retro-window-body {
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+
+/* Gadgets: square boxes separated from the move bar by a black line. */
+.retro-gadget {
+    position: relative;
+    width: var(--retro-bar-height);
+    flex: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    cursor: pointer;
+}
+
+    .retro-gadget::before,
+    .retro-gadget::after {
+        content: "";
+        position: absolute;
+    }
+
+    .retro-gadget:focus-visible {
+        outline: var(--retro-line) dotted var(--retro-shadow);
+        outline-offset: -3px;
+    }
+
+    /* Selected object: inverted. */
+    .retro-gadget:active {
+        filter: invert(1);
+    }
+
+/* Close and full boxes: 24x22 with a 2px black frame, laid over the window border and the move bar line.
+   A 2px line outside the frame, on the move bar side, makes the 4px junction of the real one. */
+.retro-gadget-close,
+.retro-gadget-front {
+    box-sizing: content-box;
+    width: 24px;
+    height: 22px;
+    margin: -2px 0;
+    box-shadow: inset 0 0 0 2px var(--retro-shadow);
+}
+
+/* Close box, at the left: the GEM 8x7 pixel glyph (a cross cut out of a black frame), each pixel 2px. */
+.retro-gadget-close {
+    margin-left: -1px;
+    border-right: 2px solid var(--retro-shadow);
+}
+
+    .retro-gadget-close::before {
+        inset: 0;
+        margin: auto;
+        width: 16px;
+        height: 14px;
+        background: currentColor;
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M2 0h4v1H2zM0 1h1v1H0zM3 1h2v1H3zM7 1h1v1H7zM0 2h2v1H0zM6 2h2v1H6zM0 3h3v1H0zM5 3h3v1H5zM0 4h2v1H0zM6 4h2v1H6zM0 5h1v1H0zM3 5h2v1H3zM7 5h1v1H7zM2 6h4v1H2z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M2 0h4v1H2zM0 1h1v1H0zM3 1h2v1H3zM7 1h1v1H7zM0 2h2v1H0zM6 2h2v1H6zM0 3h3v1H0zM5 3h3v1H5zM0 4h2v1H0zM6 4h2v1H6zM0 5h1v1H0zM3 5h2v1H3zM7 5h1v1H7zM2 6h4v1H2z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+    }
+
+/* GEM draws no box on an inactive window: only the move bar and its title. */
+.retro-window:not(.retro-window-active) > .retro-titlebar > .retro-gadget {
+    display: none;
+}
+
+/* GEM has no "send to back" box: only the full box is shown, at the right. */
+.retro-gadget-back {
+    display: none;
+}
+
+.retro-gadget-front {
+    margin-right: -1px;
+    border-left: 2px solid var(--retro-shadow);
+}
+
+    /* The GEM 8x7 pixel glyph (a diamond cut out of a black frame), each pixel 2px. */
+    .retro-gadget-front::before {
+        inset: 0;
+        margin: auto;
+        width: 16px;
+        height: 14px;
+        background: currentColor;
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h3v1H0zM5 0h3v1H5zM0 1h2v1H0zM6 1h2v1H6zM0 2h1v1H0zM3 2h2v1H3zM7 2h1v1H7zM2 3h4v1H2zM0 4h1v1H0zM3 4h2v1H3zM7 4h1v1H7zM0 5h2v1H0zM6 5h2v1H6zM0 6h3v1H0zM5 6h3v1H5z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h3v1H0zM5 0h3v1H5zM0 1h2v1H0zM6 1h2v1H6zM0 2h1v1H0zM3 2h2v1H3zM7 2h1v1H7zM2 3h4v1H2zM0 4h1v1H0zM3 4h2v1H3zM7 4h1v1H7zM0 5h2v1H0zM6 5h2v1H6zM0 6h3v1H0zM5 6h3v1H5z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+    }
+
+/*----------*\
+    Button
+\*----------*/
+.retro-button {
+    position: relative;
+    min-width: 72px;
+    min-height: 24px;
+    margin: 4px;
+    padding: 2px 12px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    border-radius: 0;
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* Default (exit) button of a dialog: thick frame. */
+.retro-button-default {
+    border-width: 3px;
+}
+
+.retro-button:focus-visible {
+    outline: var(--retro-line) dotted var(--retro-shadow);
+    outline-offset: -5px;
+}
+
+.retro-button:not(:disabled):active {
+    background: var(--retro-shadow);
+    color: var(--retro-background);
+}
+
+.retro-button:disabled {
+    cursor: default;
+}
+
+    .retro-button:disabled::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+
+/*------------*\
+    CheckBox
+\*------------*/
+.retro-checkbox {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+}
+
+.retro-checkbox-input {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    flex: none;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-shadow);
+    cursor: inherit;
+}
+
+    /* Checked: a cross from corner to corner. */
+    .retro-checkbox-input:checked {
+        background:
+            linear-gradient(to top right, transparent calc(50% - 1px), var(--retro-shadow) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),
+            linear-gradient(to bottom right, transparent calc(50% - 1px), var(--retro-shadow) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),
+            var(--retro-background);
+    }
+
+    .retro-checkbox-input:focus-visible {
+        outline: var(--retro-line) dotted var(--retro-shadow);
+        outline-offset: 2px;
+    }
+
+.retro-checkbox:has(.retro-checkbox-input:disabled) {
+    cursor: default;
+}
+
+    .retro-checkbox:has(.retro-checkbox-input:disabled)::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+
+/*----------------*\
+    Label, TextBox
+\*----------------*/
+.retro-label {
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+.retro-field {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .retro-field:has(.retro-textbox:disabled)::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--retro-ghost);
+    }
+
+/* Editable text: no frame, the field is underlined like the "____" template of GEM dialogs. */
+.retro-textbox {
+    min-width: 0;
+    height: 22px;
+    padding: 0 2px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: 0;
+    border-bottom: var(--retro-line) dashed var(--retro-shadow);
+    border-radius: 0;
+    outline: none;
+    caret-color: var(--retro-shadow);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+    .retro-textbox:focus {
+        border-bottom-style: solid;
+    }
+
+    .retro-textbox::placeholder {
+        color: var(--retro-text);
+        opacity: 0.5;
+    }
+
+    .retro-textbox::selection {
+        background: var(--retro-shadow);
+        color: var(--retro-background);
+    }
+
+/*---------------*\
+    ProgressBar
+\*---------------*/
+.retro-progress {
+    width: 100%;
+    height: 20px;
+    padding: 2px;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-shadow);
+}
+
+.retro-progress-bar {
+    height: 100%;
+    max-width: 100%;
+    background: var(--retro-pattern);
+}

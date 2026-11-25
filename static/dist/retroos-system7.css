@@ -1,0 +1,435 @@
+/*!
+ * Blazor.RetroOS - System 7 style theme (classic Mac)
+ * https://github.com/tossnet/Blazor-RetroOS - MIT License
+ * Every theme defines the same retro- classes: swap this file for another retroos-*.css to change the look.
+ */
+
+/* Proportional pixel system font, converted from ChiKareGo2 by Giles Booth (CC BY, see fonts/retroos-chikarego2.LICENSE.txt).
+   One font pixel is one CSS pixel at 12px. */
+@font-face {
+    font-family: "RetroOS ChiKareGo2";
+    src: url("fonts/retroos-chikarego2.woff2") format("woff2");
+    font-display: block;
+}
+
+/* Black and white, 50% gray desktop, rounded push buttons. Measured on a 1:1 screenshot (one screen pixel
+   is one CSS pixel). */
+:root {
+    --retro-font: "RetroOS ChiKareGo2", "Geneva", "Helvetica Neue", Arial, sans-serif;
+    --retro-font-size: 12px;
+    --retro-font-weight: bold;
+    --retro-desktop: #808080;
+    --retro-background: #ffffff;
+    --retro-text: #000000;
+    --retro-highlight: #ffffff;
+    --retro-shadow: #000000;
+    --retro-accent: #000000;
+    --retro-disabled: #888888;
+    --retro-line: 1px;
+    --retro-bar-height: 20px;
+    /* Desktop: 50% gray, a checkerboard of black and white pixels. */
+    --retro-pattern: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0 / 2px 2px;
+}
+
+/*---------*\
+    Reset
+\*---------*/
+/* RetroOS must look the same whatever the application loads besides it (Bootstrap, Tailwind, MudBlazor...):
+   these elements inherit nothing from the page. First in the file: the rules below can still override it. */
+.retro-screen,
+.retro-window,
+.retro-gadget,
+.retro-button,
+.retro-checkbox,
+.retro-checkbox-input,
+.retro-label,
+.retro-field,
+.retro-textbox,
+.retro-progress {
+    box-sizing: border-box;
+    line-height: normal;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+    font-style: normal;
+    /* The system font has a single, heavy weight: bold for the fallback fonts (missing chars), no faux bold on the pixel font. */
+    font-weight: var(--retro-font-weight);
+    font-synthesis: none;
+}
+
+/* Form controls: the browser and the frameworks give them their own font and look. */
+.retro-gadget,
+.retro-button,
+.retro-checkbox-input,
+.retro-textbox {
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/*----------*\
+    Screen
+\*----------*/
+.retro-screen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    box-sizing: border-box;
+    background: var(--retro-pattern);
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+.retro-screen *,
+.retro-screen *::before,
+.retro-screen *::after {
+    box-sizing: border-box;
+}
+
+/* Menu bar: white, black line below. */
+.retro-screen-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: var(--retro-bar-height);
+    padding: 0 12px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border-bottom: var(--retro-line) solid var(--retro-shadow);
+    white-space: nowrap;
+    flex: none;
+}
+
+.retro-screen-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.retro-screen-body {
+    position: relative;
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+
+/*----------*\
+    Window
+\*----------*/
+/* Thin black frame and a 1px drop shadow at the right and at the bottom. */
+.retro-window {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    box-shadow: 1px 1px 0 var(--retro-shadow);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+/* Title bar: 17px between the window frame and the black line below. Inactive: white, title grayed.
+   Box sizing is explicit: frameworks such as Bootstrap set border-box on everything. */
+.retro-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: content-box;
+    height: 17px;
+    padding: 0 8px;
+    background: var(--retro-background);
+    color: var(--retro-disabled);
+    border-bottom: var(--retro-line) solid var(--retro-shadow);
+    -webkit-user-select: none;
+    user-select: none;
+    flex: none;
+}
+
+/* Active: six black lines (rows 3 to 13), 1px away from the frame. */
+.retro-window-active > .retro-titlebar {
+    color: var(--retro-text);
+    background:
+        repeating-linear-gradient(to bottom, var(--retro-shadow) 0 1px, var(--retro-background) 1px 2px) 1px 3px / calc(100% - 2px) 11px no-repeat,
+        var(--retro-background);
+}
+
+/* Centered title on a white box that cuts the lines. */
+.retro-titlebar-text {
+    flex: 0 1 auto;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 0 6px;
+    background: var(--retro-background);
+    line-height: 17px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+    .retro-titlebar-text:empty {
+        visibility: hidden;
+    }
+
+.retro-window-body {
+    flex: 1;
+    padding: 8px;
+    overflow: auto;
+}
+
+/* Close and zoom boxes: 11x11 black frame, with a 1px white margin that cuts the lines. */
+.retro-gadget {
+    position: relative;
+    width: 11px;
+    height: 11px;
+    flex: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    box-shadow: inset 0 0 0 1px var(--retro-shadow), 0 0 0 1px var(--retro-background);
+    cursor: pointer;
+}
+
+    .retro-gadget::before,
+    .retro-gadget::after {
+        content: "";
+        position: absolute;
+    }
+
+    .retro-gadget:focus-visible {
+        outline: var(--retro-line) dotted var(--retro-shadow);
+        outline-offset: 2px;
+    }
+
+    /* Pressed (same for both boxes): the frame filled with lavender, eight black rays around a 3x3 empty center. */
+    .retro-gadget:active::before {
+        visibility: hidden;
+    }
+
+    .retro-gadget:active::after {
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' shape-rendering='crispEdges'%3E%3Cpath fill='%23000' d='M0 0h11v11H0z'/%3E%3Cpath fill='%2399c' d='M1 1h9v9H1z'/%3E%3Cpath fill='%23000' d='M5 1h1v3H5zM5 7h1v3H5zM1 5h3v1H1zM7 5h3v1H7zM2 2h1v1H2zM3 3h1v1H3zM8 2h1v1H8zM7 3h1v1H7zM2 8h1v1H2zM3 7h1v1H3zM8 8h1v1H8zM7 7h1v1H7z'/%3E%3C/svg%3E") 0 0 / 11px 11px no-repeat;
+    }
+
+/* No box on an inactive window. */
+.retro-window:not(.retro-window-active) > .retro-titlebar > .retro-gadget {
+    visibility: hidden;
+}
+
+/* No "send to back" box: only the close box at the left and the zoom box at the right. */
+.retro-gadget-back {
+    display: none;
+}
+
+/* Close box: the empty frame, always at the left. */
+.retro-gadget-close {
+    order: -1;
+}
+
+/* Zoom box: a smaller frame in the top left corner. */
+.retro-gadget-front::before {
+    top: 0;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    box-shadow: inset 0 0 0 1px var(--retro-shadow);
+}
+
+/*----------*\
+    Button
+\*----------*/
+/* Push buttons, 20px high. The rounded corners are drawn pixel by pixel by a 9-slice image of the
+   black line, 4px wide over a 1px transparent border: every pixel outside the line is in that border,
+   so the background (clipped to the padding box) fills exactly the inside of the line, whatever its color.
+   Pressed: filled black, white text. */
+.retro-button {
+    position: relative;
+    min-width: 58px;
+    min-height: 20px;
+    margin: 4px;
+    padding: 0 11px;
+    background: var(--retro-background);
+    background-clip: padding-box;
+    color: var(--retro-text);
+    border: 1px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' shape-rendering='crispEdges'%3E%3Cpath fill='%23000' d='M3 0h3v1H3zM1 1h2v1H1zM6 1h2v1H6zM1 2h1v1H1zM7 2h1v1H7zM0 3h1v1H0zM8 3h1v1H8zM0 4h1v1H0zM8 4h1v1H8zM0 5h1v1H0zM8 5h1v1H8zM1 6h1v1H1zM7 6h1v1H7zM1 7h2v1H1zM6 7h2v1H6zM3 8h3v1H3z'/%3E%3C/svg%3E") 4 / 4px;
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.retro-button:not(:disabled):active {
+    background-color: var(--retro-shadow);
+    color: var(--retro-highlight);
+}
+
+/* Disabled: gray text, the line stays black. */
+.retro-button:disabled {
+    color: var(--retro-disabled);
+    cursor: default;
+}
+
+.retro-button:focus-visible {
+    outline: var(--retro-line) dotted var(--retro-shadow);
+    outline-offset: -3px;
+}
+
+/* Default button: rounder corners, and a 3px ring 1px away from the button, drawn in its 4px margin:
+   the button stays aligned with the others, as on the real one. */
+.retro-button-default {
+    border-image-source: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' shape-rendering='crispEdges'%3E%3Cpath fill='%23000' d='M2 0h5v1H2zM1 1h2v1H1zM6 1h2v1H6zM0 2h2v1H0zM7 2h2v1H7zM0 3h1v1H0zM8 3h1v1H8zM0 4h1v1H0zM8 4h1v1H8zM0 5h1v1H0zM8 5h1v1H8zM0 6h2v1H0zM7 6h2v1H7zM1 7h2v1H1zM6 7h2v1H6zM2 8h5v1H2z'/%3E%3C/svg%3E");
+}
+
+    .retro-button-default::before {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        border: 7px solid transparent;
+        border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' shape-rendering='crispEdges'%3E%3Cpath fill='%23000' d='M5 0h5v1H5zM3 1h9v1H3zM2 2h11v1H2zM1 3h5v1H1zM9 3h5v1H9zM1 4h3v1H1zM11 4h3v1H11zM0 5h4v1H0zM11 5h4v1H11zM0 6h3v1H0zM12 6h3v1H12zM0 7h3v1H0zM12 7h3v1H12zM0 8h3v1H0zM12 8h3v1H12zM0 9h4v1H0zM11 9h4v1H11zM1 10h3v1H1zM11 10h3v1H11zM1 11h5v1H1zM9 11h5v1H9zM2 12h11v1H2zM3 13h9v1H3zM5 14h5v1H5z'/%3E%3C/svg%3E") 7;
+        pointer-events: none;
+    }
+
+    .retro-button-default:disabled::before {
+        border-image-source: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' shape-rendering='crispEdges'%3E%3Cpath fill='%23888' d='M5 0h5v1H5zM3 1h9v1H3zM2 2h11v1H2zM1 3h5v1H1zM9 3h5v1H9zM1 4h3v1H1zM11 4h3v1H11zM0 5h4v1H0zM11 5h4v1H11zM0 6h3v1H0zM12 6h3v1H12zM0 7h3v1H0zM12 7h3v1H12zM0 8h3v1H0zM12 8h3v1H12zM0 9h4v1H0zM11 9h4v1H11zM1 10h3v1H1zM11 10h3v1H11zM1 11h5v1H1zM9 11h5v1H9zM2 12h11v1H2zM3 13h9v1H3zM5 14h5v1H5z'/%3E%3C/svg%3E");
+    }
+
+/*------------*\
+    CheckBox
+\*------------*/
+.retro-checkbox {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+    cursor: pointer;
+}
+
+/* 12x12 box, checked: a cross from corner to corner, drawn pixel by pixel. */
+.retro-checkbox-input {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 12px;
+    height: 12px;
+    margin: 0;
+    flex: none;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-shadow);
+    cursor: inherit;
+}
+
+    .retro-checkbox-input:checked {
+        border: 0;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Cpath fill='%23000' d='M0 0h12v1H0zM0 1h2v1H0zM10 1h2v1H10zM0 2h1v1H0zM2 2h1v1H2zM9 2h1v1H9zM11 2h1v1H11zM0 3h1v1H0zM3 3h1v1H3zM8 3h1v1H8zM11 3h1v1H11zM0 4h1v1H0zM4 4h1v1H4zM7 4h1v1H7zM11 4h1v1H11zM0 5h1v1H0zM5 5h2v1H5zM11 5h1v1H11zM0 6h1v1H0zM5 6h2v1H5zM11 6h1v1H11zM0 7h1v1H0zM4 7h1v1H4zM7 7h1v1H7zM11 7h1v1H11zM0 8h1v1H0zM3 8h1v1H3zM8 8h1v1H8zM11 8h1v1H11zM0 9h1v1H0zM2 9h1v1H2zM9 9h1v1H9zM11 9h1v1H11zM0 10h2v1H0zM10 10h2v1H10zM0 11h12v1H0z'/%3E%3Cpath fill='%23fff' d='M2 1h8v1H2zM1 2h1v1H1zM3 2h6v1H3zM10 2h1v1H10zM1 3h2v1H1zM4 3h4v1H4zM9 3h2v1H9zM1 4h3v1H1zM5 4h2v1H5zM8 4h3v1H8zM1 5h4v1H1zM7 5h4v1H7zM1 6h4v1H1zM7 6h4v1H7zM1 7h3v1H1zM5 7h2v1H5zM8 7h3v1H8zM1 8h2v1H1zM4 8h4v1H4zM9 8h2v1H9zM1 9h1v1H1zM3 9h6v1H3zM10 9h1v1H10zM2 10h8v1H2z'/%3E%3C/svg%3E") 0 0 / 100% 100%;
+    }
+
+    /* Pressed: a thicker frame. */
+    .retro-checkbox-input:not(:disabled):active {
+        box-shadow: inset 0 0 0 1px var(--retro-shadow);
+    }
+
+    .retro-checkbox-input:focus-visible {
+        outline: var(--retro-line) dotted var(--retro-shadow);
+        outline-offset: 2px;
+    }
+
+/* Disabled: everything gray. */
+.retro-checkbox:has(.retro-checkbox-input:disabled) {
+    color: var(--retro-disabled);
+    cursor: default;
+}
+
+.retro-checkbox-input:disabled {
+    border-color: var(--retro-disabled);
+}
+
+    .retro-checkbox-input:disabled:checked {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Cpath fill='%23888' d='M0 0h12v1H0zM0 1h2v1H0zM10 1h2v1H10zM0 2h1v1H0zM2 2h1v1H2zM9 2h1v1H9zM11 2h1v1H11zM0 3h1v1H0zM3 3h1v1H3zM8 3h1v1H8zM11 3h1v1H11zM0 4h1v1H0zM4 4h1v1H4zM7 4h1v1H7zM11 4h1v1H11zM0 5h1v1H0zM5 5h2v1H5zM11 5h1v1H11zM0 6h1v1H0zM5 6h2v1H5zM11 6h1v1H11zM0 7h1v1H0zM4 7h1v1H4zM7 7h1v1H7zM11 7h1v1H11zM0 8h1v1H0zM3 8h1v1H3zM8 8h1v1H8zM11 8h1v1H11zM0 9h1v1H0zM2 9h1v1H2zM9 9h1v1H9zM11 9h1v1H11zM0 10h2v1H0zM10 10h2v1H10zM0 11h12v1H0z'/%3E%3Cpath fill='%23fff' d='M2 1h8v1H2zM1 2h1v1H1zM3 2h6v1H3zM10 2h1v1H10zM1 3h2v1H1zM4 3h4v1H4zM9 3h2v1H9zM1 4h3v1H1zM5 4h2v1H5zM8 4h3v1H8zM1 5h4v1H1zM7 5h4v1H7zM1 6h4v1H1zM7 6h4v1H7zM1 7h3v1H1zM5 7h2v1H5zM8 7h3v1H8zM1 8h2v1H1zM4 8h4v1H4zM9 8h2v1H9zM1 9h1v1H1zM3 9h6v1H3zM10 9h1v1H10zM2 10h8v1H2z'/%3E%3C/svg%3E");
+    }
+
+/*----------------*\
+    Label, TextBox
+\*----------------*/
+.retro-label {
+    color: var(--retro-text);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+.retro-field {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .retro-field:has(.retro-textbox:disabled) .retro-label {
+        color: var(--retro-disabled);
+    }
+
+/* Editable text: a thin black frame, selection inverted. */
+.retro-textbox {
+    min-width: 0;
+    height: 22px;
+    padding: 0 3px;
+    background: var(--retro-background);
+    color: var(--retro-text);
+    border: var(--retro-line) solid var(--retro-shadow);
+    border-radius: 0;
+    outline: none;
+    caret-color: var(--retro-shadow);
+    font-family: var(--retro-font);
+    font-size: var(--retro-font-size);
+    -webkit-font-smoothing: none;
+}
+
+    .retro-textbox:disabled {
+        color: var(--retro-disabled);
+        border-color: var(--retro-disabled);
+    }
+
+    .retro-textbox::placeholder {
+        color: var(--retro-disabled);
+        opacity: 1;
+    }
+
+    .retro-textbox::selection {
+        background: var(--retro-shadow);
+        color: var(--retro-background);
+    }
+
+/*---------------*\
+    ProgressBar
+\*---------------*/
+/* Thin black frame, filled black. */
+.retro-progress {
+    width: 100%;
+    height: 12px;
+    padding: 0;
+    box-sizing: border-box;
+    background: var(--retro-background);
+    border: var(--retro-line) solid var(--retro-shadow);
+}
+
+.retro-progress-bar {
+    height: 100%;
+    max-width: 100%;
+    background: var(--retro-shadow);
+}

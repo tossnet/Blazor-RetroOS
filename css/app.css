@@ -1,0 +1,136 @@
+/* Demo layout only: the colors come from the CSS variables of the current theme. */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#app {
+    height: 100%;
+}
+
+.demo-screen {
+    height: 100%;
+}
+
+    /* The side menu touches the edges of the screen, as in the Blazor.WinOld demo (.demo-main has its own padding). */
+    .demo-screen .retro-screen-body {
+        padding: 0;
+    }
+
+.demo-theme-link {
+    padding: 0 6px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .demo-theme-link.selected,
+    .demo-theme-link:hover {
+        text-decoration: underline;
+    }
+
+.demo-main h1 {
+    font-size: 1.4em;
+    margin: 0 0 8px;
+}
+
+    .demo-main h1:focus {
+        outline: none;
+    }
+
+.demo-main h2 {
+    font-size: 1.1em;
+}
+
+.demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 12px;
+    align-items: start;
+}
+
+/* Code samples (Brism CodeBlock): wrap the long lines instead of a scrollbar in the narrow windows */
+.demo-main pre[class*="language-"],
+.demo-main pre[class*="language-"] > code {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+    /* prism.css gives the operators a light background, too visible on the dark theme */
+    .demo-main pre[class*="language-"] .token.operator {
+        background: none;
+    }
+
+.demo-table {
+    border-collapse: collapse;
+}
+
+/* Button page: one row per appearance (name, normal, disabled, default) */
+.demo-button-grid {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    align-items: center;
+    gap: 4px;
+    width: fit-content;
+    margin-bottom: 8px;
+}
+
+/* Button page: the System 7 dialog sample, buttons of the same width in a column. */
+.demo-button-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+    margin-bottom: 8px;
+}
+
+    .demo-button-stack .retro-button {
+        width: 80px;
+    }
+
+.demo-separator {
+    align-self: stretch;
+    margin: 6px 0;
+    border: 0;
+    border-top: 1px solid var(--retro-disabled, var(--retro-text));
+    opacity: 1;
+}
+
+/* Button page: the "Custom style" sample. The class is more specific than .retro-button, no !important needed. */
+.retro-button.demo-custom-btn {
+    background-color: #594ae2;
+    color: white;
+}
+
+    .retro-button.demo-custom-btn:not(:disabled):hover {
+        background-color: #3e2cdd;
+    }
+
+    .demo-table th,
+    .demo-table td {
+        border: var(--retro-line) solid var(--retro-text);
+        padding: 2px 8px;
+        text-align: left;
+    }
+
+#blazor-error-ui {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.6rem 1.25rem;
+    background: lightyellow;
+    color: #000;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
